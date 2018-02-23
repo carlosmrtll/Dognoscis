@@ -1,8 +1,10 @@
 package mx.itesm.dognoscis;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.VoiceInteractor;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.CountDownTimer;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,10 +64,13 @@ public class photoActivity extends AppCompatActivity {
     Uri photoURI;
     ImageView image;
     TextView percentages, top;
+    Button reportbutton;
+    String breed = null;
     HttpURLConnection urlConnection;
     private Bitmap bitmap;
     Properties properties;
     public static final String PROPERTIES_FILE = "properties.xml";
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,9 @@ public class photoActivity extends AppCompatActivity {
         image = findViewById(R.id.imageView);
         percentages = findViewById(R.id.percentages);
         top = findViewById(R.id.top);
+        reportbutton = findViewById(R.id.button4);
+        intent = new Intent();
+        //sss
 
         dispatchTakePictureIntent();
 
@@ -146,7 +155,7 @@ public class photoActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
         image.setImageURI(photoURI);
         loading = ProgressDialog.show(this,"Recognizing...","Please wait...",false,false);
-        timer = new MyCountDownTimer(15000, 1000);
+        timer = new MyCountDownTimer(20000, 1000);
         timer.start();
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -222,6 +231,10 @@ public class photoActivity extends AppCompatActivity {
                     }catch (IOException ioe){
                         ioe.printStackTrace();
                     }
+                    breed = first.name;
+                    intent.putExtra("breed", breed);
+                    intent.putExtra("clicked", true);
+                    setResult(Activity.RESULT_OK, intent);
                 } catch(JSONException e){
                     Log.d("response","EXCEPTION: " + e.getMessage());
                 }
@@ -317,4 +330,10 @@ public class photoActivity extends AppCompatActivity {
     }
 
 
+    public void reportClick(View v) {
+        intent.putExtra("breed", breed);
+        intent.putExtra("clicked", false);
+        setResult(Activity.RESULT_OK, intent);
+        Toast.makeText(photoActivity.this,"Report sent",  Toast.LENGTH_LONG).show();
+    }
 }
