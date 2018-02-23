@@ -60,6 +60,7 @@ public class photoActivity extends AppCompatActivity {
     String breed = null;
     HttpURLConnection urlConnection;
     private Bitmap bitmap;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,8 @@ public class photoActivity extends AppCompatActivity {
         percentages = findViewById(R.id.percentages);
         top = findViewById(R.id.top);
         reportbutton = findViewById(R.id.button4);
+        intent = new Intent();
+        //sss
 
         dispatchTakePictureIntent();
 
@@ -140,7 +143,7 @@ public class photoActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
         image.setImageURI(photoURI);
         loading = ProgressDialog.show(this,"Recognizing...","Please wait...",false,false);
-        timer = new MyCountDownTimer(15000, 1000);
+        timer = new MyCountDownTimer(20000, 1000);
         timer.start();
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -198,6 +201,9 @@ public class photoActivity extends AppCompatActivity {
                         percentages.setText("irreconocible");
                     }*/
                     breed = first.name;
+                    intent.putExtra("breed", breed);
+                    intent.putExtra("clicked", true);
+                    setResult(Activity.RESULT_OK, intent);
                 } catch(JSONException e){
                     Log.d("response","EXCEPTION: " + e.getMessage());
                 }
@@ -269,9 +275,8 @@ public class photoActivity extends AppCompatActivity {
     }
 
     public void reportClick(View v) {
-        Intent intent = new Intent();
         intent.putExtra("breed", breed);
-        intent.putExtra("clicked", true);
+        intent.putExtra("clicked", false);
         setResult(Activity.RESULT_OK, intent);
         Toast.makeText(photoActivity.this,"Report sent",  Toast.LENGTH_LONG).show();
     }
