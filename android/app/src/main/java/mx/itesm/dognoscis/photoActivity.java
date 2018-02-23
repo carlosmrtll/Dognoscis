@@ -1,7 +1,9 @@
 package mx.itesm.dognoscis;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.VoiceInteractor;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.CountDownTimer;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +56,8 @@ public class photoActivity extends AppCompatActivity {
     Uri photoURI;
     ImageView image;
     TextView percentages, top;
+    Button reportbutton;
+    String breed = null;
     HttpURLConnection urlConnection;
     private Bitmap bitmap;
 
@@ -64,6 +69,7 @@ public class photoActivity extends AppCompatActivity {
         image = findViewById(R.id.imageView);
         percentages = findViewById(R.id.percentages);
         top = findViewById(R.id.top);
+        reportbutton = findViewById(R.id.button4);
 
         dispatchTakePictureIntent();
 
@@ -191,6 +197,7 @@ public class photoActivity extends AppCompatActivity {
                     } else {
                         percentages.setText("irreconocible");
                     }*/
+                    breed = first.name;
                 } catch(JSONException e){
                     Log.d("response","EXCEPTION: " + e.getMessage());
                 }
@@ -261,4 +268,11 @@ public class photoActivity extends AppCompatActivity {
         return encodedImage;
     }
 
+    public void reportClick(View v) {
+        Intent intent = new Intent();
+        intent.putExtra("breed", breed);
+        intent.putExtra("clicked", true);
+        setResult(Activity.RESULT_OK, intent);
+        Toast.makeText(photoActivity.this,"Report sent",  Toast.LENGTH_LONG).show();
+    }
 }
