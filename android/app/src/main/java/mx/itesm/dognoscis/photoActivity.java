@@ -147,7 +147,7 @@ public class photoActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
-            Toast.makeText(photoActivity.this,"Something went wrong, please try again.",  Toast.LENGTH_LONG).show();
+            Toast.makeText(photoActivity.this,"Response is taking too long, please wait.",  Toast.LENGTH_LONG).show();
             loading.dismiss();
         }
     }
