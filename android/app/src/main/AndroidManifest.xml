@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mx.itesm.dognoscis">
 
-    <uses-feature android:name="android.hardware.camera"
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -23,12 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".photoActivity" />
-        <activity android:name=".HistoryActivity" />
         <activity android:name=".RankingActivity" />
         <activity android:name=".RankActivity" />
-        <activity android:name=".RankInfoActivity"></activity>
+        <activity android:name=".RankInfoActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -39,6 +39,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".HistoryActivity"></activity>
     </application>
 
 </manifest>

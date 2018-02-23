@@ -2,6 +2,7 @@ package mx.itesm.dognoscis;
 
 import android.app.ProgressDialog;
 import android.app.VoiceInteractor;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.CountDownTimer;
@@ -36,8 +37,11 @@ import cz.msebera.android.httpclient.Header;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -45,16 +49,22 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Properties;
+
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class photoActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
     String mCurrentPhotoPath;
     File photoFile = null;
+    int quantity;
     Uri photoURI;
     ImageView image;
     TextView percentages, top;
     HttpURLConnection urlConnection;
     private Bitmap bitmap;
+    Properties properties;
+    public static final String PROPERTIES_FILE = "properties.xml";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +76,8 @@ public class photoActivity extends AppCompatActivity {
         top = findViewById(R.id.top);
 
         dispatchTakePictureIntent();
+
+        properties = new Properties();
 
     }
 
@@ -139,12 +151,13 @@ public class photoActivity extends AppCompatActivity {
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        File myFile = new File("/path/to/file.png");
+
         RequestParams params = new RequestParams();
         params.put("enctype", "multipart/form-data");
         try {
             params.put("fileupload", photoFile);
         } catch(FileNotFoundException e) {}
+
 
         class DogInfo{
             String name;
@@ -191,11 +204,30 @@ public class photoActivity extends AppCompatActivity {
                     } else {
                         percentages.setText("irreconocible");
                     }*/
+
+                    try{
+                        FileInputStream fis = openFileInput(PROPERTIES_FILE);
+                        properties.loadFromXML(fis);
+                        fis.close();
+
+                        quantity = Integer.parseInt(properties.getProperty("quantity"));
+                        quantity++;
+
+                        properties.put("quantity", String.valueOf(quantity));
+                        properties.put(String.valueOf(quantity),percentages.getText());
+                        properties.put(String.valueOf(quantity)+"uri",photoURI.toString());
+                        saveProperties();
+
+                        File myFile = new File("/path/to/file.png");
+                    }catch (IOException ioe){
+                        ioe.printStackTrace();
+                    }
                 } catch(JSONException e){
                     Log.d("response","EXCEPTION: " + e.getMessage());
                 }
             }
         });
+
     }
 
     private void uploadImage() {
@@ -258,7 +290,31 @@ public class photoActivity extends AppCompatActivity {
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+
+
+
+
+        try {
+            FileOutputStream outputStream = getApplicationContext().openFileOutput("imagen.gif", Context.MODE_PRIVATE);
+            outputStream.write(imageBytes);
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+
         return encodedImage;
     }
+
+    private void saveProperties() throws IOException{
+
+        FileOutputStream fos = openFileOutput(PROPERTIES_FILE, Context.MODE_PRIVATE);
+        properties.storeToXML(fos, null);
+        fos.close();
+        Toast.makeText(this, "FILE SAVED", Toast.LENGTH_SHORT).show();
+    }
+
 
 }
