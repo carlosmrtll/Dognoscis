@@ -1,0 +1,21 @@
+{
+  "server": {
+    "address": "0.0.0.0",
+    "port": 80
+  },
+  "tensor_flow": {
+    "graph": "retrained_graph.pb",
+    "labels": "retrained_labels.txt",
+    "input_layer_name": "DecodeJpeg/contents:0",
+    "output_layer_name": "final_result:0",
+    "num_top_predictions": 5
+  },
+  "img_path": "img/",
+  "tf_path": "tf/",
+  "dog_data": {
+    "husky": { },
+    "dalmata": { },
+    "san bernardo": { },
+    "chihuahua": { }
+  }
+}
