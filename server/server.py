@@ -1,11 +1,11 @@
 
 from image_recognizer import ImageRecognizer
-#from pymongo import MongoClient
 from flask import *
 
 import configparser
 import json
 import os
+import random
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -15,10 +15,6 @@ with open('config.json') as json_data_file:
     data = json.load(json_data_file)
 
 app = Flask(__name__)
-
-# MongoDB
-#client = MongoClient(data['mongo_db']['address'], data['mongo_db']['port'])
-#collection = client[data['mongo_db']['database']][data['mongo_db']['collection']]
 
 # Tensor Flow
 ir = ImageRecognizer(
@@ -40,7 +36,7 @@ def build_full_results(partial_results):
         }
     return full_result
 
-# Main and only route
+# image recognizer
 @app.route('/upload', methods=['POST'])
 def upload():
     if request.method == 'POST':
@@ -56,6 +52,15 @@ def upload():
 
         print(results)
         return jsonify(build_full_results(results))
+
+# random dog photo of a particular breed
+@app.route('/pic', methods=['GET'])
+def pic():
+    if request.method == 'GET':
+        #arr = {"items": [{"a": 1, "b": 2}, {"c": 3, "d": request.args.get('breed')}]}
+        files = os.listdir('img/'+request.args.get('breed'))
+        index = random.randrange(0, len(files))
+        return send_file('img/'+request.args.get('breed')+'/'+files[index], mimetype='image/jpg')
 
 if __name__ == '__main__':
         app.run(host=data['server']['address'], port=data['server']['port'])
