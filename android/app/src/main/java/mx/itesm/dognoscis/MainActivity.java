@@ -85,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void quizActivity(View v){
+        Intent intent = new Intent(this, QuizActivity.class);
+        startActivity(intent);
+    }
+
     private void saveProperties() throws IOException{
 
         FileOutputStream fos = openFileOutput(PROPERTIES_FILE, Context.MODE_PRIVATE);

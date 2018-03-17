@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="92dp"
         android:onClick="photoActivity"
         android:text="Tomar una foto"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +21,8 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="44dp"
         android:onClick="historyActivity"
         android:text="VER Historial"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,11 +32,22 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="59dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="56dp"
         android:onClick="buttonClick"
         android:text="Ranking"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="49dp"
+        android:onClick="quizActivity"
+        android:text="quiz"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
 </android.support.constraint.ConstraintLayout>

@@ -87,7 +87,6 @@ public class photoActivity extends AppCompatActivity {
         dispatchTakePictureIntent();
 
         properties = new Properties();
-
     }
 
 
@@ -133,7 +132,6 @@ public class photoActivity extends AppCompatActivity {
         return image;
     }
 
-    String url = "http://35.202.118.185:80/upload";
     ProgressDialog loading;
     MyCountDownTimer timer;
     public class MyCountDownTimer extends CountDownTimer {
@@ -181,7 +179,7 @@ public class photoActivity extends AppCompatActivity {
             }
         };
 
-        client.post(url, params, new JsonHttpResponseHandler(){
+        client.post(ValuesSecret.IMAGE_RECOGNIZER_API_URL, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response){
                 Log.d("mens", "success!");
@@ -256,7 +254,7 @@ public class photoActivity extends AppCompatActivity {
                 loading.dismiss();
             }
         }.start();*/
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ValuesSecret.IMAGE_RECOGNIZER_API_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

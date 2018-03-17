@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mx.itesm.dognoscis.QuizActivity">
+
+    <ImageView
+        android:id="@+id/dogImageView"
+        android:layout_width="184dp"
+        android:layout_height="355dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_download_done" />
+
+    <Button
+        android:id="@+id/Husky"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="92dp"
+        android:onClick="checkChoice"
+        android:text="Husky"
+        app:layout_constraintStart_toEndOf="@+id/dogImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Chihuahua"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="57dp"
+        android:onClick="checkChoice"
+        android:text="shihuahua"
+        app:layout_constraintStart_toEndOf="@+id/dogImageView"
+        app:layout_constraintTop_toBottomOf="@+id/Husky" />
+
+    <Button
+        android:id="@+id/SanBernardo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="48dp"
+        android:onClick="checkChoice"
+        android:text="san bernardo"
+        app:layout_constraintStart_toEndOf="@+id/dogImageView"
+        app:layout_constraintTop_toBottomOf="@+id/Chihuahua" />
+
+    <Button
+        android:id="@+id/Dalmata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="50dp"
+        android:onClick="checkChoice"
+        android:text="dalmata"
+        app:layout_constraintStart_toEndOf="@+id/dogImageView"
+        app:layout_constraintTop_toBottomOf="@+id/SanBernardo" />
+</android.support.constraint.ConstraintLayout>
