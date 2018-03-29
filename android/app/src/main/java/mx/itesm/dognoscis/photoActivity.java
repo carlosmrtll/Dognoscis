@@ -191,20 +191,42 @@ public class photoActivity extends AppCompatActivity {
                     JSONObject JSONdalmata = response.getJSONObject("dalmata");
                     JSONObject JSONchihuahua = response.getJSONObject("chihuahua");
                     JSONObject JSONsanBernardo = response.getJSONObject("san bernardo");
+                    JSONObject JSONgranDanes = response.getJSONObject("gran danes");
+                    JSONObject JSONpastorAleman = response.getJSONObject("pastor aleman");
+                    JSONObject JSONYorkshire = response.getJSONObject("yorkshire");
+                    JSONObject JSONshihTzu = response.getJSONObject("shih tzu");
                     queue.add(new DogInfo("Husky", JSONhusky.getDouble("value")*100.0));
                     queue.add(new DogInfo("Dalmata", JSONdalmata.getDouble("value")*100.0));
                     queue.add(new DogInfo("Chihuahua", JSONchihuahua.getDouble("value")*100.0));
                     queue.add(new DogInfo("San Bernardo", JSONsanBernardo.getDouble("value") * 100.0));
+                    queue.add(new DogInfo("Gran Danes", JSONgranDanes.getDouble("value") * 100.0));
+                    queue.add(new DogInfo("Pastor Aleman", JSONpastorAleman.getDouble("value") * 100.0));
+                    queue.add(new DogInfo("Yorkshire", JSONYorkshire.getDouble("value") * 100.0));
+                    queue.add(new DogInfo("Shih Tzu", JSONshihTzu.getDouble("value") * 100.0));
                     DogInfo first = queue.poll();
                     DogInfo second = queue.poll();
                     DogInfo third = queue.poll();
                     DogInfo fourth = queue.poll();
+                    DogInfo fifth = queue.poll();
+                    DogInfo sixth = queue.poll();
+                    DogInfo seventh = queue.poll();
+                    DogInfo eighth = queue.poll();
                     Log.d("response: ", "first: " + first.name + " - " + first.certainty);
                     Log.d("response: ", "second: " + second.name + " - " + second.certainty);
                     Log.d("response: ", "third: " + third.name + " - " + third.certainty);
 
-                    top.setText("That's a " + first.name + "!");
-                    percentages.setText(String.format("\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c", first.name, (int)first.certainty, '%', second.name, (int)second.certainty, '%', third.name, (int)third.certainty, '%', fourth.name, (int)fourth.certainty, '%'));
+                    top.setText("That's a\n" + first.name + "!");
+                    percentages.setText(String.format("\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c" +
+                                    "\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c",
+                            first.name, (int)first.certainty, '%',
+                            second.name, (int)second.certainty, '%',
+                            third.name, (int)third.certainty, '%',
+                            fourth.name, (int)fourth.certainty, '%',
+                            fifth.name, (int)fifth.certainty, '%',
+                            sixth.name, (int)sixth.certainty, '%',
+                            seventh.name, (int)seventh.certainty, '%',
+                            eighth.name, (int)eighth.certainty, '%'
+                    ));
                     loading.dismiss();
                     /*if(first.certainty > 70){
                         //textView1.setText(first.name+" -  calorias: "+first.calories+"  protein: "+first.protein+"\n  fat: "+first.fat+"  carbohidrates: "+first.carbohidrates );

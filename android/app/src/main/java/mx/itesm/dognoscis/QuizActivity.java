@@ -20,7 +20,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private ImageView dogImageView;
     private String correctBreed;
-    private String[] breeds = {"Husky", "Dalmata", "San_Bernardo", "Chihuahua"};
+    private String[] breeds = {"Husky", "Dalmata", "San_Bernardo", "Chihuahua",
+                                "Gran_Danes", "Pastor_Aleman", "Yorkshire", "Shih_Tzu"};
     private Random random;
 
     @Override
@@ -36,20 +37,36 @@ public class QuizActivity extends AppCompatActivity {
         int id = v.getId();
         Log.wtf("QUIZ", "id:"+id+" cB:"+correctBreed);
         if(id==R.id.Husky && correctBreed.equals(breeds[0])){
+            Log.wtf("QUIZ", "correct "+breeds[0]);
             randomPhoto();
-            Log.wtf("QUIZ", "correct Husky");
         }
         else if(id==R.id.Dalmata && correctBreed.equals(breeds[1])){
+            Log.wtf("QUIZ", "correct "+breeds[1]);
             randomPhoto();
-            Log.wtf("QUIZ", "correct Dalmata");
         }
         else if(id==R.id.SanBernardo && correctBreed.equals(breeds[2])){
+            Log.wtf("QUIZ", "correct "+breeds[2]);
             randomPhoto();
-            Log.wtf("QUIZ", "correct San Bernardo");
         }
         else if(id==R.id.Chihuahua && correctBreed.equals(breeds[3])){
+            Log.wtf("QUIZ", "correct "+breeds[3]);
             randomPhoto();
-            Log.wtf("QUIZ", "correct Chihuahua");
+        }
+        else if(id==R.id.GranDanes && correctBreed.equals(breeds[4])){
+            Log.wtf("QUIZ", "correct "+breeds[4]);
+            randomPhoto();
+        }
+        else if(id==R.id.PastorAleman && correctBreed.equals(breeds[5])){
+            Log.wtf("QUIZ", "correct "+breeds[5]);
+            randomPhoto();
+        }
+        else if(id==R.id.Yorkshire && correctBreed.equals(breeds[6])){
+            Log.wtf("QUIZ", "correct "+breeds[6]);
+            randomPhoto();
+        }
+        else if(id==R.id.ShihTzu && correctBreed.equals(breeds[7])){
+            Log.wtf("QUIZ", "correct "+breeds[7]);
+            randomPhoto();
         }
     }
 

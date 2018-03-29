@@ -19,7 +19,7 @@ public class RankActivity extends AppCompatActivity {
 
     private String pname = "Husky";
     private ListView listView;
-    private String[] source = {"hola" , "hola", "hola", "hola"};
+    private String[] source = {"hola" , "hola", "hola", "hola", "hola" , "hola", "hola", "hola"};
     //private String[] perros = {"husky", "dalmata", "chihuahua", "sanbernardo"};
     //private String[] source = new String[4];
     //private String[] perros = {"husky", "dalmata", "chihuahua", "sanbernardo"};
@@ -37,7 +37,7 @@ public class RankActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 //Log.d("->","yes:"+snapshot.child(data.getStringExtra("breed")).child("count").getValue());
-                int i=3;
+                int i=7;
                 Log.d("-->", "llega");
                 for (DataSnapshot child : snapshot.getChildren()) {
                     source[i] = child.getKey().toString();
