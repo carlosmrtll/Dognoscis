@@ -40,7 +40,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".HistoryActivity"></activity>
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".QuizActivity" />
     </application>
 
 </manifest>
