@@ -17,90 +17,47 @@
     app:srcCompat="@android:drawable/stat_sys_download_done" />
 
     <Button
-        android:id="@+id/Husky"
+        android:id="@+id/opcion1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="102dp"
         android:onClick="checkChoice"
-        android:text="Husky"
+        android:text="uno"
         app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/GranDanes" />
-
-    <Button
-        android:id="@+id/Chihuahua"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="241dp"
-        android:layout_marginTop="16dp"
-        android:onClick="checkChoice"
-        android:text="chihuahua"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/SanBernardo"
+        android:id="@+id/opcion2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="41dp"
         android:onClick="checkChoice"
-        android:text="san bernardo"
+        android:text="dos"
         app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/PastorAleman" />
+        app:layout_constraintTop_toBottomOf="@+id/opcion1" />
 
     <Button
-        android:id="@+id/Dalmata"
+        android:id="@+id/opcion3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="45dp"
         android:onClick="checkChoice"
-        android:text="dalmata"
+        android:text="tres"
         app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/Chihuahua" />
+        app:layout_constraintTop_toBottomOf="@+id/opcion2" />
 
     <Button
-        android:id="@+id/GranDanes"
+        android:id="@+id/opcion4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="45dp"
         android:onClick="checkChoice"
-        android:text="gran danes"
+        android:text="cuatro"
         app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/Dalmata" />
+        app:layout_constraintTop_toBottomOf="@+id/opcion3" />
 
-    <Button
-        android:id="@+id/Yorkshire"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="8dp"
-        android:onClick="checkChoice"
-        android:text="yorkshire"
-        app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/ShihTzu" />
-
-    <Button
-        android:id="@+id/ShihTzu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="7dp"
-        android:onClick="checkChoice"
-        android:text="shih tzu"
-        app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/SanBernardo" />
-
-    <Button
-        android:id="@+id/PastorAleman"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="9dp"
-        android:onClick="checkChoice"
-        android:text="pastor aleman"
-        app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/Husky" />
 </android.support.constraint.ConstraintLayout>

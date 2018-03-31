@@ -2,14 +2,12 @@ package mx.itesm.dognoscis;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Environment;
-import android.preference.PreferenceActivity;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -24,13 +22,9 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +38,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -53,8 +46,6 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Properties;
-
-import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class photoActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
@@ -80,7 +71,7 @@ public class photoActivity extends AppCompatActivity {
         image = findViewById(R.id.imageView);
         percentages = findViewById(R.id.percentages);
         top = findViewById(R.id.top);
-        reportbutton = findViewById(R.id.button4);
+        reportbutton = findViewById(R.id.reportProblemBtn);
         intent = new Intent();
         //sss
 
@@ -195,6 +186,7 @@ public class photoActivity extends AppCompatActivity {
                     JSONObject JSONpastorAleman = response.getJSONObject("pastor aleman");
                     JSONObject JSONYorkshire = response.getJSONObject("yorkshire");
                     JSONObject JSONshihTzu = response.getJSONObject("shih tzu");
+                    JSONObject JSONbeagle = response.getJSONObject("beagle");
                     queue.add(new DogInfo("Husky", JSONhusky.getDouble("value")*100.0));
                     queue.add(new DogInfo("Dalmata", JSONdalmata.getDouble("value")*100.0));
                     queue.add(new DogInfo("Chihuahua", JSONchihuahua.getDouble("value")*100.0));
@@ -203,6 +195,7 @@ public class photoActivity extends AppCompatActivity {
                     queue.add(new DogInfo("Pastor Aleman", JSONpastorAleman.getDouble("value") * 100.0));
                     queue.add(new DogInfo("Yorkshire", JSONYorkshire.getDouble("value") * 100.0));
                     queue.add(new DogInfo("Shih Tzu", JSONshihTzu.getDouble("value") * 100.0));
+                    queue.add(new DogInfo("Beagle", JSONbeagle.getDouble("value") * 100.0));
                     DogInfo first = queue.poll();
                     DogInfo second = queue.poll();
                     DogInfo third = queue.poll();
@@ -211,13 +204,16 @@ public class photoActivity extends AppCompatActivity {
                     DogInfo sixth = queue.poll();
                     DogInfo seventh = queue.poll();
                     DogInfo eighth = queue.poll();
+                    DogInfo nineth = queue.poll();
                     Log.d("response: ", "first: " + first.name + " - " + first.certainty);
                     Log.d("response: ", "second: " + second.name + " - " + second.certainty);
                     Log.d("response: ", "third: " + third.name + " - " + third.certainty);
 
                     top.setText("That's a\n" + first.name + "!");
+                    reportbutton.setText("That's not a " + first.name);
                     percentages.setText(String.format("\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c" +
-                                    "\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c",
+                                    "\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c" +
+                                    "\n %s - %d%c",
                             first.name, (int)first.certainty, '%',
                             second.name, (int)second.certainty, '%',
                             third.name, (int)third.certainty, '%',
@@ -225,7 +221,8 @@ public class photoActivity extends AppCompatActivity {
                             fifth.name, (int)fifth.certainty, '%',
                             sixth.name, (int)sixth.certainty, '%',
                             seventh.name, (int)seventh.certainty, '%',
-                            eighth.name, (int)eighth.certainty, '%'
+                            eighth.name, (int)eighth.certainty, '%',
+                            nineth.name, (int)nineth.certainty, '%'
                     ));
                     loading.dismiss();
                     /*if(first.certainty > 70){
@@ -354,6 +351,6 @@ public class photoActivity extends AppCompatActivity {
         intent.putExtra("breed", breed);
         intent.putExtra("clicked", false);
         setResult(Activity.RESULT_OK, intent);
-        Toast.makeText(photoActivity.this,"Report sent",  Toast.LENGTH_LONG).show();
+        Toast.makeText(photoActivity.this,"Report sent, our apologies",  Toast.LENGTH_LONG).show();
     }
 }
