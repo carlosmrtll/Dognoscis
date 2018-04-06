@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="159dp"
+        android:layout_marginTop="64dp"
         android:text="total points:"
         android:textSize="30sp"
         tools:layout_editor_absoluteX="163dp"
@@ -22,9 +22,30 @@
         android:id="@+id/totalPoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView10"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="48dp"
         android:text="0"
         android:textSize="36sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/totalPoints"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="71dp"
+        android:onClick="SubmitScore"
+        android:text="Submit Score" />
+
+    <Button
+        android:id="@+id/leaderbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/submit"
+        android:layout_below="@+id/submit"
+        android:layout_marginTop="32dp"
+        android:onClick="leaderboardClick"
+        android:text="Leaderboard" />
 </RelativeLayout>

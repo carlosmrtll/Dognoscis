@@ -35,7 +35,9 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.google.firebase:firebase-core:11.8.0'
     compile 'com.google.firebase:firebase-database:11.8.0'
+    compile files('libs/App42_ANDROID_SDK_3.9.2.jar')
 }
+
 
 
 apply plugin: 'com.google.gms.google-services'
