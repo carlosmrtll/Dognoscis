@@ -6,11 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -86,7 +88,13 @@ public class RankActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                String temp = ""+(listView.getItemAtPosition(position));
+                //String temp = ""+(listView.getItemAtPosition(position));
+                ViewGroup row = (ViewGroup)listView.getChildAt(1);
+                TextView name = view.findViewById(R.id.breedName);
+                String temp = name.getText().toString();
+                //String temp = row.
+                //TextView name = listView;
+                //String temp = name.getText().toString();
                 if(temp.equals("San Bernardo")){
                     pname = "sanbernardo";
                 } else {

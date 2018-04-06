@@ -35,7 +35,7 @@ public class QuizResults extends AppCompatActivity {
     private Button submit;
     private Button leaderboard;
     private int score;
-    public static String user = "tester";
+    public static String user = "martell";
     public static ScoreBoardService scoreBoardService;
     private Dialog Signin;
 
@@ -67,7 +67,7 @@ public class QuizResults extends AppCompatActivity {
         if(settings.contains("Username")){
             user = settings.getString("Username", "").toString();
         } else {
-            callLoginDialog();
+            //callLoginDialog();
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("Username",user);
             editor.commit();
@@ -80,7 +80,8 @@ public class QuizResults extends AppCompatActivity {
         QuizResults.scoreBoardService.saveUserScore("Quiz", QuizResults.user, gameScore,new App42CallBack() {
             public void onSuccess(Object response) {
                 Log.d("App42API:","score SAVED");
-                Toast.makeText(QuizResults.this, "Score saved.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(QuizResults.this, "Score saved.", Toast.LENGTH_SHORT).show();
+                Log.wtf("LEADER", "score saved");
             }
             public void onException(Exception ex) {
                 Log.d("App42API:", "score FAILED to save");

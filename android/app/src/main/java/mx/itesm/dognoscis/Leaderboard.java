@@ -51,9 +51,6 @@ public class Leaderboard extends AppCompatActivity {
                     topPlayers.add(i,game.getScoreList().get(i).getUserName()+" - "+game.getScoreList().get(i).getValue());
                     Log.d("App42API:",game.getScoreList().get(i).getUserName()+" - "+game.getScoreList().get(i).getValue());
                 }
-
-                ArrayAdapter<String> leaderboardAdapter = new ArrayAdapter<String>(Leaderboard.this, android.R.layout.simple_list_item_1, topPlayers);
-                leaderboard.setAdapter(leaderboardAdapter);
             }
 
             public void onException(Exception ex)
@@ -61,5 +58,13 @@ public class Leaderboard extends AppCompatActivity {
                 Log.d("App42API","Exception Message"+ex.getMessage());
             }
         });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                ArrayAdapter<String> leaderboardAdapter = new ArrayAdapter<String>(Leaderboard.this, android.R.layout.simple_list_item_1, topPlayers);
+                leaderboard.setAdapter(leaderboardAdapter);
+            }
+        }, 2000);   //5 seconds
     }
 }
