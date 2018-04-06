@@ -1,6 +1,8 @@
 package mx.itesm.dognoscis;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -30,6 +34,12 @@ public class QuizActivity extends AppCompatActivity {
     List<String> breeds = new ArrayList<>();
     private Button opcion1, opcion2, opcion3, opcion4;
     private Random random;
+    private My1SecondCountDownTimer timer1Second = new My1SecondCountDownTimer();
+    private My10SecondsCountDownTimer timer10Seconds = new My10SecondsCountDownTimer();
+    private ProgressBar timeLeft;
+    private int points;
+    private TextView pointsText;
+    private int question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +59,45 @@ public class QuizActivity extends AppCompatActivity {
         opcion2 = findViewById(R.id.opcion2);
         opcion3 = findViewById(R.id.opcion3);
         opcion4 = findViewById(R.id.opcion4);
+        timeLeft = findViewById(R.id.progressBar);
+        pointsText = findViewById(R.id.pointsText);
+        timeLeft.setMax(100);
+        timeLeft.setScaleY(3f);
+        points = 0;
+        question = 0;
         randomPhoto();
+    }
+
+    private class My1SecondCountDownTimer extends CountDownTimer {
+        public My1SecondCountDownTimer() {
+            super(1000, 1000);
+        }
+
+        @Override
+        public void onTick(long l) { }
+
+        @Override
+        public void onFinish() {
+            Log.wtf("QUIZ_", "terminó 1 segundo");
+            timer10Seconds = new My10SecondsCountDownTimer();
+            timer10Seconds.start();
+        }
+    }
+
+    private class My10SecondsCountDownTimer extends CountDownTimer {
+        public My10SecondsCountDownTimer() {
+            super(10000, 100);
+        }
+
+        @Override
+        public void onTick(long l) {
+            timeLeft.setProgress(timeLeft.getProgress()-1);
+        }
+
+        @Override
+        public void onFinish() {
+            Log.wtf("QUIZ_", "terminaron 10 segundos");
+        }
     }
 
     public void checkChoice(View v){
@@ -95,6 +143,17 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void randomPhoto(){
+        timer1Second.cancel();
+        timer10Seconds.cancel();
+        Log.wtf("QUIZ_","points:"+String.valueOf(timeLeft.getProgress()));
+        points += timeLeft.getProgress();
+        if(question == 10){
+            Intent intent = new Intent(this, QuizResults.class);
+            intent.putExtra("points", String.valueOf(points));
+            startActivity(intent);
+        } else {
+            question++;
+        }
         // Initialize a new RequestQueue instance
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         random = new Random(System.currentTimeMillis());
@@ -105,13 +164,16 @@ public class QuizActivity extends AppCompatActivity {
         opcion3.setText(breeds.get(2));
         opcion4.setText(breeds.get(3));
         Log.wtf("QUIZ", "correctBreed:"+correctBreed);
-
+        pointsText.setText(String.valueOf(points));
         ImageRequest imageRequest = new ImageRequest(
             ValuesSecret.RANDOM_PHOTO_API_URL+correctBreed,
             new Response.Listener<Bitmap>() {
                 @Override
                 public void onResponse(Bitmap response) {
                     dogImageView.setImageBitmap(response);
+                    timer1Second = new My1SecondCountDownTimer();
+                    timer1Second.start();
+                    timeLeft.setProgress(100);
                 }
             },
             0,

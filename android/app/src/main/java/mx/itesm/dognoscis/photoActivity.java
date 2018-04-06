@@ -145,8 +145,8 @@ public class photoActivity extends AppCompatActivity {
     }
 
     ProgressDialog loading;
-    MyCountDownTimer timer;
-    public class MyCountDownTimer extends CountDownTimer {
+    private MyCountDownTimer timer;
+    private class MyCountDownTimer extends CountDownTimer {
 
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);

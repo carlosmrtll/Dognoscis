@@ -56,7 +56,8 @@
         <activity
             android:name=".QuizActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".rankingRow"></activity>
+        <activity android:name=".rankingRow" />
+        <activity android:name=".QuizResults"></activity>
     </application>
 
 </manifest>
