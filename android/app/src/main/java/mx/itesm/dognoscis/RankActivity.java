@@ -91,14 +91,16 @@ public class RankActivity extends AppCompatActivity {
                 //String temp = ""+(listView.getItemAtPosition(position));
                 ViewGroup row = (ViewGroup)listView.getChildAt(1);
                 TextView name = view.findViewById(R.id.breedName);
-                String temp = name.getText().toString();
+                pname = name.getText().toString().toLowerCase().replaceAll("\\s", "");
                 //String temp = row.
                 //TextView name = listView;
                 //String temp = name.getText().toString();
-                if(temp.equals("San Bernardo")){
-                    pname = "sanbernardo";
-                } else {
-                    pname = temp;
+                if(pname.equals("dalmata")){
+                    pname = "Dalmata";
+                } else if(pname.equals("chihuahua")){
+                    pname = "Chihuahua";
+                } else if(pname.equals("husky")){
+                    pname = "Husky";
                 }
                 Log.d("-->", "pname:"+pname);
                 click(view);
