@@ -7,14 +7,14 @@
     tools:context="mx.itesm.dognoscis.QuizActivity">
 
     <ImageView
-    android:id="@+id/dogImageView"
-    android:layout_width="184dp"
-    android:layout_height="355dp"
-    android:layout_marginStart="24dp"
-    android:layout_marginTop="84dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@android:drawable/stat_sys_download_done" />
+        android:id="@+id/dogImageView"
+        android:layout_width="184dp"
+        android:layout_height="355dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_download_done" />
 
     <Button
         android:id="@+id/opcion1"
