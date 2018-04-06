@@ -18,11 +18,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class RankActivity extends AppCompatActivity {
 
     private String pname = "Husky";
     private ListView listView;
-    private String[] source = {"hola" , "hola", "hola", "hola", "hola" , "hola", "hola", "hola", "hola"};
+    //private String[] source = {"hola" , "hola", "hola", "hola", "hola" , "hola", "hola", "hola", "hola"};
+    private ArrayList<Rank> source = new ArrayList<>();
     //private String[] perros = {"husky", "dalmata", "chihuahua", "sanbernardo"};
     //private String[] source = new String[4];
     //private String[] perros = {"husky", "dalmata", "chihuahua", "sanbernardo"};
@@ -39,28 +42,38 @@ public class RankActivity extends AppCompatActivity {
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.light_bg));
         getSupportActionBar().hide();
         listView = (ListView)findViewById(R.id.ListView);
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
 
         ref.orderByChild("count").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 //Log.d("->","yes:"+snapshot.child(data.getStringExtra("breed")).child("count").getValue());
-                int i = source.length-1;
+                int i = source.size()-1;
                 Log.d("-->", "llega");
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    source[i] = child.getKey().toString();
+                    Long count = (Long)child.child("count").getValue();
+                    source.set(i, new Rank(child.getKey().toString(), count.intValue()));
                     Log.d("-->","key:"+child.getKey());
-                    Log.d("-->","count:"+child.child("count").getValue());
+                    Log.d("-->","count: "+count.intValue());
                     i--;
                 }
                 Log.d("-->", "sale");
                 // Adapter
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                         RankActivity.this,
                         android.R.layout.simple_list_item_1,
                         source
-                );
+                );*/
 
-                listView.setAdapter(adapter);
+                listView.setAdapter(new RankAdapter(RankActivity.this, source));
             }
             @Override
             public void onCancelled(DatabaseError firebaseError) {
