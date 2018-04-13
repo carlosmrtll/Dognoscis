@@ -110,7 +110,7 @@ public class RankActivity extends AppCompatActivity {
 
     public void click(View v){
         Intent intent = new Intent(this, RankInfoActivity.class);
-        intent.putExtra("perroname", pname);
+        intent.putExtra("perroname", pname.toLowerCase());
         Log.d("-->", "pname2:"+pname);
 
         startActivity(intent);

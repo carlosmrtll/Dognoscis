@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
+
+        try { Thread.sleep(3000); }
+        catch (InterruptedException ex) {  }
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         Window window = getWindow();

@@ -4,10 +4,13 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,6 +58,12 @@ public class QuizResults extends AppCompatActivity {
         score = Integer.parseInt(intent.getStringExtra("points"));
 
         totalPointsText.setText(Integer.toString(score));
+
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.light_bg));
+        getSupportActionBar().hide();
     }
 
     public void leaderboardClick(View v){
@@ -125,5 +134,10 @@ public class QuizResults extends AppCompatActivity {
                 Signin.dismiss();
             }
         });
+    }
+
+    public void backMenu(View v){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

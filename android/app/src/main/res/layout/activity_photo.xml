@@ -53,13 +53,11 @@
         android:id="@+id/top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/percentages"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="41dp"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_marginTop="22dp"
+        android:layout_toEndOf="@+id/imageView"
         android:inputType="textMultiLine"
-        android:singleLine="false"
-        android:text="TextView" />
+        android:singleLine="false" />
 
     <Button
         android:id="@+id/reportProblemBtn"

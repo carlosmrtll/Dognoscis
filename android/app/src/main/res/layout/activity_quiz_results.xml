@@ -49,4 +49,15 @@
         android:layout_marginTop="32dp"
         android:onClick="leaderboardClick"
         android:text="Leaderboard" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/leaderbutton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/leaderbutton"
+        android:layout_marginBottom="26dp"
+        android:onClick="backMenu"
+        android:text="Back to menu" />
 </RelativeLayout>
