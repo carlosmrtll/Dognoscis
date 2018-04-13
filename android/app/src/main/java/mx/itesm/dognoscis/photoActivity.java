@@ -271,10 +271,15 @@ public class photoActivity extends AppCompatActivity {
                     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
                     final int[] CUSTOM_COLORS = {
-                            Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
-                            Color.rgb(106, 150, 31), Color.rgb(179, 100, 53),
-                            Color.rgb(193, 38, 82), Color.rgb(255, 103, 0), Color.rgb(245, 198, 0),
-                            Color.rgb(106, 151, 31)
+                            Color.rgb(106, 150, 31), // green
+                            Color.rgb(245, 199, 0),  // yellow
+                            Color.rgb(255, 102, 0),  // orange
+                            Color.rgb(193, 37, 82),  // red
+                            Color.rgb(179, 100, 53), // brown
+                            Color.rgb(148, 0, 211),  // violet
+                            Color.rgb(75, 0, 130),   // indigo
+                            Color.rgb(0, 0, 255),    // blue
+                            Color.rgb(18, 189, 185)  // cyan
                     };
                     Legend legend = pieChart.getLegend();
                     legend.setEnabled(true);
