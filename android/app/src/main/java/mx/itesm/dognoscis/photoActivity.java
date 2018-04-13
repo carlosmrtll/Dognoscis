@@ -244,7 +244,7 @@ public class photoActivity extends AppCompatActivity {
 
                         Log.d("DEBUG",first.name+": "+first.certainty);
                         properties.put("quantity", String.valueOf(quantity));
-                        properties.put(String.valueOf(quantity)+"percentages",first.name+": "+first.certainty);
+                        properties.put(String.valueOf(quantity)+"percentages",first.name+": "+String.format("%.2f   ",first.certainty));
                         properties.put(String.valueOf(quantity)+"uri",photoURI.toString());
                         saveProperties();
 
