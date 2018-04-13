@@ -13,22 +13,32 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:screenOrientation="portrait" >
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".photoActivity" android:screenOrientation="portrait" />
-        <activity android:name=".RankingActivity" android:screenOrientation="portrait" />
-        <activity android:name=".RankActivity" android:screenOrientation="portrait" />
-        <activity android:name=".RankInfoActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".photoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RankingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RankActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RankInfoActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -40,8 +50,15 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".HistoryActivity" android:screenOrientation="portrait" />
-        <activity android:name=".QuizActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".HistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QuizActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".rankingRow" />
+        <activity android:name=".QuizResults" />
+        <activity android:name=".Leaderboard"></activity>
     </application>
 
 </manifest>

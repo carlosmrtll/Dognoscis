@@ -4,60 +4,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_bg"
     tools:context="mx.itesm.dognoscis.QuizActivity">
 
     <ImageView
-    android:id="@+id/dogImageView"
-    android:layout_width="184dp"
-    android:layout_height="355dp"
-    android:layout_marginStart="24dp"
-    android:layout_marginTop="84dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@android:drawable/stat_sys_download_done" />
+        android:id="@+id/dogImageView"
+        android:layout_width="369dp"
+        android:layout_height="299dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="25dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"></ImageView>
 
     <Button
         android:id="@+id/opcion1"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="102dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/mybutton"
+        android:color="@color/blue"
         android:onClick="checkChoice"
-        android:text="uno"
-        app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Uno"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/light_bg"
+        android:textSize="24sp"
+        android:typeface="monospace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dogImageView" />
 
     <Button
         android:id="@+id/opcion2"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/mybutton"
         android:onClick="checkChoice"
-        android:text="dos"
-        app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/opcion1" />
+        android:text="Dos"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/light_bg"
+        android:textSize="24sp"
+        android:typeface="monospace"
+        app:layout_constraintStart_toEndOf="@+id/opcion1"
+        app:layout_constraintTop_toBottomOf="@+id/dogImageView" />
 
     <Button
         android:id="@+id/opcion3"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/mybutton"
         android:onClick="checkChoice"
-        android:text="tres"
-        app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/opcion2" />
+        android:text="Tres"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/light_bg"
+        android:textSize="24sp"
+        android:typeface="monospace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opcion1" />
 
     <Button
         android:id="@+id/opcion4"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="167dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/mybutton"
+        android:onClick="checkChoice"
+        android:text="Cuatro"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/light_bg"
+        android:textSize="24sp"
+        android:typeface="monospace"
+        app:layout_constraintStart_toEndOf="@+id/opcion3"
+        app:layout_constraintTop_toBottomOf="@+id/opcion2"
+
+        />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="357dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:progressTint="@color/light_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pointsText" />
+
+    <TextView
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="45dp"
-        android:onClick="checkChoice"
-        android:text="cuatro"
-        app:layout_constraintStart_toEndOf="@+id/dogImageView"
-        app:layout_constraintTop_toBottomOf="@+id/opcion3" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Points:"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/dark"
+        android:textSize="24sp"
+        android:typeface="monospace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pointsText"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="29dp"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/dark"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

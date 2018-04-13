@@ -5,16 +5,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +34,15 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.loopj.android.http.*;
 import cz.msebera.android.httpclient.Header;
 
@@ -40,6 +54,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Hashtable;
@@ -62,18 +77,24 @@ public class photoActivity extends AppCompatActivity {
     Properties properties;
     public static final String PROPERTIES_FILE = "properties.xml";
     Intent intent;
+    PieChart pieChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.light_bg));
+        getSupportActionBar().hide();
 
         image = findViewById(R.id.imageView);
         percentages = findViewById(R.id.percentages);
         top = findViewById(R.id.top);
         reportbutton = findViewById(R.id.reportProblemBtn);
         intent = new Intent();
-        //sss
+        pieChart = (PieChart)findViewById(R.id.chart);
 
         dispatchTakePictureIntent();
 
@@ -124,8 +145,8 @@ public class photoActivity extends AppCompatActivity {
     }
 
     ProgressDialog loading;
-    MyCountDownTimer timer;
-    public class MyCountDownTimer extends CountDownTimer {
+    private MyCountDownTimer timer;
+    private class MyCountDownTimer extends CountDownTimer {
 
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
@@ -208,6 +229,10 @@ public class photoActivity extends AppCompatActivity {
                     Log.d("response: ", "first: " + first.name + " - " + first.certainty);
                     Log.d("response: ", "second: " + second.name + " - " + second.certainty);
                     Log.d("response: ", "third: " + third.name + " - " + third.certainty);
+                    ArrayList<DogInfo> dogInfos = new ArrayList<>();
+                    dogInfos.add(first); dogInfos.add(second); dogInfos.add(third); dogInfos.add(fourth);
+                    dogInfos.add(fifth); dogInfos.add(sixth); dogInfos.add(seventh); dogInfos.add(eighth);
+                    dogInfos.add(nineth);
 
                     try{
                         FileInputStream fis = openFileInput(PROPERTIES_FILE);
@@ -243,6 +268,37 @@ public class photoActivity extends AppCompatActivity {
                             eighth.name, (int)eighth.certainty, '%',
                             nineth.name, (int)nineth.certainty, '%'
                     ));
+                    ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+
+                    final int[] CUSTOM_COLORS = {
+                            Color.rgb(193, 37, 82), Color.rgb(255, 102, 0), Color.rgb(245, 199, 0),
+                            Color.rgb(106, 150, 31), Color.rgb(179, 100, 53),
+                            Color.rgb(193, 38, 82), Color.rgb(255, 103, 0), Color.rgb(245, 198, 0),
+                            Color.rgb(106, 151, 31)
+                    };
+                    Legend legend = pieChart.getLegend();
+                    legend.setEnabled(true);
+                    ArrayList<LegendEntry> labels = new ArrayList<>();
+                    for(int i=0; i<9; i++){
+                        entries.add(new PieEntry((float)(int)dogInfos.get(i).certainty, i));
+
+                        LegendEntry legendEntry = new LegendEntry();
+                        legendEntry.formColor = CUSTOM_COLORS[i];
+                        legendEntry.label = dogInfos.get(i).name+" - "+(int)dogInfos.get(i).certainty+"%";
+                        labels.add(legendEntry);
+                    }
+                    PieDataSet dataset = new PieDataSet(entries,"dataset label");
+                    legend.setCustom(labels);
+                    legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+                    dataset.setColors(CUSTOM_COLORS);
+                    PieData data = new PieData(dataset);
+                    pieChart.setData(data);
+                    Description description = new Description();
+                    description.setText("");
+                    pieChart.setDescription(description);
+                    pieChart.setExtraBottomOffset(30f);
+                    pieChart.animateY(5000);
+                    pieChart.invalidate();
                     loading.dismiss();
                     /*if(first.certainty > 70){
                         //textView1.setText(first.name+" -  calorias: "+first.calories+"  protein: "+first.protein+"\n  fat: "+first.fat+"  carbohidrates: "+first.carbohidrates );

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Dognoscis</string>
+    <color name="light_bg">#dfe6e9</color>
+    <color name="dark">#2d3436</color>
+    <color name="blue">#0984e3</color>
+    <color name="light_blue">#74b9ff</color>
+    <color name="greenblue">#00cec9</color>
+    <color name="light_greenblue">#81ecec</color>
+    <color name="prp">#6c5ce7</color>
+    <color name="light_prp">#a29bfe</color>
+    <color name="orange">#e17055</color>
+    <color name="light_orange">#fab1a0</color>
+    <color name="yellow">#fdcb6e</color>
+    <color name="light_yellow">#ffeaa7</color>
+    <color name="green">#00b894</color>
+    <color name="light_green">#55efc4</color>
+
 </resources>
