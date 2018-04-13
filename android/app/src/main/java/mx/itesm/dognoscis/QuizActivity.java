@@ -2,6 +2,8 @@ package mx.itesm.dognoscis;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +42,8 @@ public class QuizActivity extends AppCompatActivity {
     private int points;
     private TextView pointsText;
     private int question;
+    private GradientDrawable gradientDefault = new GradientDrawable();
+    private GradientDrawable gradientChosen = new GradientDrawable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,14 @@ public class QuizActivity extends AppCompatActivity {
         timeLeft.setScaleY(3f);
         points = 0;
         question = 0;
+
+        gradientDefault.setColor(Color.parseColor("#0984e3"));
+        gradientDefault.setCornerRadius(7);
+        gradientDefault.setStroke(1, Color.parseColor("#0984e3"));
+
+        gradientChosen.setColor(Color.parseColor("#74b9ff"));
+        gradientChosen.setCornerRadius(7);
+        gradientChosen.setStroke(1, Color.parseColor("#74b9ff"));
         randomPhoto();
     }
 
@@ -102,8 +114,10 @@ public class QuizActivity extends AppCompatActivity {
 
     public void checkChoice(View v){
         Button b = (Button) v;
-        String breedChosen = b.getText().toString();
+        String breedChosen = b.getText().toString().replaceAll(" ", "_");
         Log.wtf("QUIZ", "chosen:"+breedChosen+" cB:"+correctBreed);
+        b.setClickable(false);
+        b.setBackground(gradientChosen);
         if(breedChosen.equals(breeds.get(0)) && correctBreed.equals(breeds.get(0))){
             Log.wtf("QUIZ", "correct "+breeds.get(0));
             randomPhoto();
@@ -140,6 +154,10 @@ public class QuizActivity extends AppCompatActivity {
             Log.wtf("QUIZ", "correct "+breeds.get(8));
             randomPhoto();
         }
+        else {
+            points -= 50;
+            if(points<0) points=0;
+        }
     }
 
     private void randomPhoto(){
@@ -148,8 +166,10 @@ public class QuizActivity extends AppCompatActivity {
         Log.wtf("QUIZ_","points:"+String.valueOf(timeLeft.getProgress()));
         points += timeLeft.getProgress();
         if(question == 10){
+            question = 1;
             Intent intent = new Intent(this, QuizResults.class);
             intent.putExtra("points", String.valueOf(points));
+            points = 0;
             startActivity(intent);
         } else {
             question++;
@@ -159,10 +179,19 @@ public class QuizActivity extends AppCompatActivity {
         random = new Random(System.currentTimeMillis());
         Collections.shuffle(breeds);
         correctBreed = breeds.get(random.nextInt(4));
-        opcion1.setText(breeds.get(0));
-        opcion2.setText(breeds.get(1));
-        opcion3.setText(breeds.get(2));
-        opcion4.setText(breeds.get(3));
+
+        opcion1.setText(breeds.get(0).replaceAll("_", " "));
+        opcion1.setClickable(true);
+        opcion1.setBackground(gradientDefault);
+        opcion2.setText(breeds.get(1).replaceAll("_", " "));
+        opcion2.setClickable(true);
+        opcion2.setBackground(gradientDefault);
+        opcion3.setText(breeds.get(2).replaceAll("_", " "));
+        opcion3.setClickable(true);
+        opcion3.setBackground(gradientDefault);
+        opcion4.setText(breeds.get(3).replaceAll("_", " "));
+        opcion4.setClickable(true);
+        opcion4.setBackground(gradientDefault);
         Log.wtf("QUIZ", "correctBreed:"+correctBreed);
         pointsText.setText(String.valueOf(points));
         ImageRequest imageRequest = new ImageRequest(
