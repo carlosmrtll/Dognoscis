@@ -209,6 +209,25 @@ public class photoActivity extends AppCompatActivity {
                     Log.d("response: ", "second: " + second.name + " - " + second.certainty);
                     Log.d("response: ", "third: " + third.name + " - " + third.certainty);
 
+                    try{
+                        FileInputStream fis = openFileInput(PROPERTIES_FILE);
+                        properties.loadFromXML(fis);
+                        fis.close();
+
+                        quantity = Integer.parseInt(properties.getProperty("quantity"));
+                        quantity++;
+
+                        Log.d("DEBUG",first.name+": "+first.certainty);
+                        properties.put("quantity", String.valueOf(quantity));
+                        properties.put(String.valueOf(quantity)+"percentages",first.name+": "+first.certainty);
+                        properties.put(String.valueOf(quantity)+"uri",photoURI.toString());
+                        saveProperties();
+
+                    }catch (IOException ioe){
+                        ioe.printStackTrace();
+                    }
+
+
                     top.setText("That's a\n" + first.name + "!");
                     reportbutton.setText("That's not a " + first.name);
                     percentages.setText(String.format("\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c" +
@@ -231,23 +250,7 @@ public class photoActivity extends AppCompatActivity {
                         percentages.setText("irreconocible");
                     }*/
 
-                    try{
-                        FileInputStream fis = openFileInput(PROPERTIES_FILE);
-                        properties.loadFromXML(fis);
-                        fis.close();
 
-                        quantity = Integer.parseInt(properties.getProperty("quantity"));
-                        quantity++;
-
-                        properties.put("quantity", String.valueOf(quantity));
-                        properties.put(String.valueOf(quantity),percentages.getText());
-                        properties.put(String.valueOf(quantity)+"uri",photoURI.toString());
-                        saveProperties();
-
-                        File myFile = new File("/path/to/file.png");
-                    }catch (IOException ioe){
-                        ioe.printStackTrace();
-                    }
                     breed = first.name;
                     intent.putExtra("breed", breed);
                     intent.putExtra("clicked", true);
