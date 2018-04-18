@@ -95,13 +95,6 @@ public class RankActivity extends AppCompatActivity {
                 //String temp = row.
                 //TextView name = listView;
                 //String temp = name.getText().toString();
-                if(pname.equals("dalmata")){
-                    pname = "Dalmata";
-                } else if(pname.equals("chihuahua")){
-                    pname = "Chihuahua";
-                } else if(pname.equals("husky")){
-                    pname = "Husky";
-                }
                 Log.d("-->", "pname:"+pname);
                 click(view);
             }
@@ -113,6 +106,11 @@ public class RankActivity extends AppCompatActivity {
         intent.putExtra("perroname", pname.toLowerCase());
         Log.d("-->", "pname2:"+pname);
 
+        startActivity(intent);
+    }
+
+    public void openMap(View v){
+        Intent intent = new Intent(this, MapBreeds.class);
         startActivity(intent);
     }
 

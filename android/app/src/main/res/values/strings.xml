@@ -14,5 +14,6 @@
     <color name="light_yellow">#ffeaa7</color>
     <color name="green">#00b894</color>
     <color name="light_green">#55efc4</color>
+    <string name="title_activity_map_breeds">Map</string>
 
 </resources>
