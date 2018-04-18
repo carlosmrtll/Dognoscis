@@ -32,7 +32,7 @@ public class RankActivity extends AppCompatActivity {
     //private String[] source = new String[4];
     //private String[] perros = {"husky", "dalmata", "chihuahua", "sanbernardo"};
 
-    final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ranking");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

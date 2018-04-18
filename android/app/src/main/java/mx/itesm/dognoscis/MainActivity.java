@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     static final int REPORT_CODE = 1;
 
-    final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ranking");
 
     private Properties properties;
     public static final String PROPERTIES_FILE = "properties.xml";

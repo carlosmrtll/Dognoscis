@@ -252,8 +252,11 @@ public class photoActivity extends AppCompatActivity {
                         ioe.printStackTrace();
                     }
 
-
-                    top.setText("That's a\n" + first.name + "!");
+                    if(first.certainty > 70){
+                        top.setText("That's a\n" + first.name+"!");
+                    } else {
+                        top.setText("It's not as clear,\nbut that might be a "+first.name+"...");
+                    }
                     reportbutton.setText("That's not a " + first.name);
                     percentages.setText(String.format("\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c" +
                                     "\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c" +
@@ -305,12 +308,6 @@ public class photoActivity extends AppCompatActivity {
                     pieChart.animateY(5000);
                     pieChart.invalidate();
                     loading.dismiss();
-                    /*if(first.certainty > 70){
-                        //textView1.setText(first.name+" -  calorias: "+first.calories+"  protein: "+first.protein+"\n  fat: "+first.fat+"  carbohidrates: "+first.carbohidrates );
-                    } else {
-                        percentages.setText("irreconocible");
-                    }*/
-
 
                     breed = first.name;
                     intent.putExtra("breed", breed);
