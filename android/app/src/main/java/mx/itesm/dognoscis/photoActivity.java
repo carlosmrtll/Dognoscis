@@ -1,16 +1,22 @@
 package mx.itesm.dognoscis;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
+import android.location.Location;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +49,10 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.loopj.android.http.*;
 import cz.msebera.android.httpclient.Header;
 
@@ -62,7 +72,9 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Properties;
 
-public class photoActivity extends AppCompatActivity {
+public class photoActivity extends AppCompatActivity implements
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
     static final int REQUEST_TAKE_PHOTO = 1;
     String mCurrentPhotoPath;
     File photoFile = null;
@@ -78,6 +90,10 @@ public class photoActivity extends AppCompatActivity {
     public static final String PROPERTIES_FILE = "properties.xml";
     Intent intent;
     PieChart pieChart;
+
+    private GoogleApiClient client;
+    private Location lastLocation;
+    private LocationRequest locationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +115,63 @@ public class photoActivity extends AppCompatActivity {
         dispatchTakePictureIntent();
 
         properties = new Properties();
+
+        if(ContextCompat.checkSelfPermission(photoActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            // configuración de cliente de api de google
+            if (client == null){
+                client = new GoogleApiClient.Builder(this)
+                        .addConnectionCallbacks(this)
+                        .addOnConnectionFailedListener(this)
+                        .addApi(LocationServices.API)
+                        .build();
+            }
+            locationRequest = LocationRequest.create();
+            locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+            locationRequest.setInterval(1000 * 5);
+        }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(ContextCompat.checkSelfPermission(photoActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            client.connect();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(ContextCompat.checkSelfPermission(photoActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            client.disconnect();
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.wtf("PERMISOS", "onConnected()");
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED){
+            lastLocation = LocationServices.FusedLocationApi.getLastLocation(client);
+            if(lastLocation != null){
+                Log.d("PERMISOS", lastLocation.getLatitude() + ", " +
+                        lastLocation.getLongitude());
+            }
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.wtf("PERMISOS", "connection suspended");
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.wtf("PERMISOS", "connection failed");
+    }
 
     private void dispatchTakePictureIntent() {
         android.content.Intent takePictureIntent = new android.content.Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -119,10 +190,6 @@ public class photoActivity extends AppCompatActivity {
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-
-
-
-
             }
         }
     }
@@ -146,6 +213,7 @@ public class photoActivity extends AppCompatActivity {
 
     ProgressDialog loading;
     private MyCountDownTimer timer;
+
     private class MyCountDownTimer extends CountDownTimer {
 
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {
@@ -254,8 +322,20 @@ public class photoActivity extends AppCompatActivity {
 
                     if(first.certainty > 70){
                         top.setText("That's a\n" + first.name+"!");
+                        if(ContextCompat.checkSelfPermission(photoActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED){
+                            Log.wtf("PERMISOS", "ALREADY AUTHORIZED");
+                            if(lastLocation != null){
+                                Log.wtf("PERMISOS", "to database: " + lastLocation.getLatitude() + ", " +
+                                        lastLocation.getLongitude());
+                            } else {
+                                Log.wtf("PERMISOS", "lastLocation is NULL");
+                            }
+                        } else {
+                            Log.wtf("PERMISOS", "no permission for location");
+                        }
                     } else {
-                        top.setText("It's not as clear,\nbut that might be a "+first.name+"...");
+                        top.setText("It's hard to tell, are\nyou sure that's a dog?");
                     }
                     reportbutton.setText("That's not a " + first.name);
                     percentages.setText(String.format("\n %s - %d%c \n %s - %d%c \n %s - %d%c \n %s - %d%c" +

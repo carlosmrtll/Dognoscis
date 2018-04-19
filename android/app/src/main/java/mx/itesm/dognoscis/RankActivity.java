@@ -1,6 +1,10 @@
 package mx.itesm.dognoscis;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -110,9 +114,25 @@ public class RankActivity extends AppCompatActivity {
     }
 
     public void openMap(View v){
-        Intent intent = new Intent(this, MapBreeds.class);
-        startActivity(intent);
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(RankActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        } else{
+            Log.wtf("PERMISOS", "ALREADY AUTHORIZED");
+            Intent intent = new Intent(this, MapBreeds.class);
+            startActivity(intent);
+        }
     }
 
+    public void onRequestPermissionsResult(int requestCode, String[] p, int[] r){
+        if(requestCode == 0 && r[0] == PackageManager.PERMISSION_GRANTED){
+            Log.wtf("PERMISOS", "SI AUTORIZO");
+            Intent intent = new Intent(this, MapBreeds.class);
+            startActivity(intent);
+        } else {
+            Log.wtf("PERMISOS", "NO HAY AUTORIZACION");
+        }
+
+    }
 }
 
