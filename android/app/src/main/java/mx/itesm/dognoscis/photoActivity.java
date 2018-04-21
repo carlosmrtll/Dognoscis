@@ -53,6 +53,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.loopj.android.http.*;
 import cz.msebera.android.httpclient.Header;
 
@@ -90,6 +92,7 @@ public class photoActivity extends AppCompatActivity implements
     public static final String PROPERTIES_FILE = "properties.xml";
     Intent intent;
     PieChart pieChart;
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("map");
 
     private GoogleApiClient client;
     private Location lastLocation;
@@ -328,6 +331,8 @@ public class photoActivity extends AppCompatActivity implements
                             if(lastLocation != null){
                                 Log.wtf("PERMISOS", "to database: " + lastLocation.getLatitude() + ", " +
                                         lastLocation.getLongitude());
+                                BreedLocation newPhoto = new BreedLocation(first.name, lastLocation.getLatitude(), lastLocation. getLongitude());
+                                ref.push().setValue(newPhoto);
                             } else {
                                 Log.wtf("PERMISOS", "lastLocation is NULL");
                             }
