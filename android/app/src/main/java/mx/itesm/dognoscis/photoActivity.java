@@ -331,7 +331,7 @@ public class photoActivity extends AppCompatActivity implements
                             if(lastLocation != null){
                                 Log.wtf("PERMISOS", "to database: " + lastLocation.getLatitude() + ", " +
                                         lastLocation.getLongitude());
-                                BreedLocation newPhoto = new BreedLocation(first.name, lastLocation.getLatitude(), lastLocation. getLongitude());
+                                BreedLocation newPhoto = new BreedLocation(first.name, lastLocation.getLatitude(), lastLocation. getLongitude(), first.certainty);
                                 ref.push().setValue(newPhoto);
                             } else {
                                 Log.wtf("PERMISOS", "lastLocation is NULL");

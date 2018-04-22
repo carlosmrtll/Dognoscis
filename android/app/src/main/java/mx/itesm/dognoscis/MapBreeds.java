@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.clustering.ClusterItem;
+import com.google.maps.android.clustering.ClusterManager;
 
 public class MapBreeds extends FragmentActivity implements OnMapReadyCallback {
 
@@ -23,6 +25,8 @@ public class MapBreeds extends FragmentActivity implements OnMapReadyCallback {
     private final String TAG = "MAP_SCREEN";
 
     private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("map");
+
+    private ClusterManager<MyItem> mClusterManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,34 +39,28 @@ public class MapBreeds extends FragmentActivity implements OnMapReadyCallback {
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        setUpClusterer();
+
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             String breed;
-            double lat,lng;
+            double lat, lng, certainty;
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for(DataSnapshot photo : snapshot.getChildren()){
                     breed = photo.child("breed").getValue().toString();
                     lat = (double)photo.child("lat").getValue();
                     lng = (double)photo.child("lng").getValue();
+                    certainty = (double)photo.child("certainty").getValue();
                     Log.wtf(TAG, "breed:" + breed);
                     Log.wtf(TAG, "breed:" + lat);
                     Log.wtf(TAG, "breed:" + lng);
-                    LatLng photoLatLng = new LatLng(lat, lng);
-                    mMap.addMarker(new MarkerOptions().position(photoLatLng).title(breed));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(photoLatLng));
+                    Log.wtf(TAG, "certainty:" + certainty);
+                    MyItem newItem = new MyItem(lat, lng, breed, certainty+"%");
+                    mClusterManager.addItem(newItem);
                 }
             }
 
@@ -71,5 +69,47 @@ public class MapBreeds extends FragmentActivity implements OnMapReadyCallback {
 
             }
         });
+    }
+
+    private void setUpClusterer() {
+        // Initialize the manager with the context and the map.
+        // (Activity extends context, so we can pass 'this' in the constructor.)
+        mClusterManager = new ClusterManager<MyItem>(this, mMap);
+
+        // Point the map's listeners at the listeners implemented by the cluster
+        // manager.
+        mMap.setOnCameraIdleListener(mClusterManager);
+        mMap.setOnMarkerClickListener(mClusterManager);
+    }
+
+    public class MyItem implements ClusterItem {
+        private final LatLng mPosition;
+        private /*final*/ String mTitle;
+        private /*final*/ String mSnippet;
+
+        public MyItem(double lat, double lng) {
+            mPosition = new LatLng(lat, lng);
+        }
+
+        public MyItem(double lat, double lng, String title, String snippet) {
+            mPosition = new LatLng(lat, lng);
+            mTitle = title;
+            mSnippet = snippet;
+        }
+
+        @Override
+        public LatLng getPosition() {
+            return mPosition;
+        }
+
+        @Override
+        public String getTitle() {
+            return mTitle;
+        }
+
+        @Override
+        public String getSnippet() {
+            return mSnippet;
+        }
     }
 }
