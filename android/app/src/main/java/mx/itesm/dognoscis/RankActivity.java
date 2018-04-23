@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class RankActivity extends AppCompatActivity {
 
     private String pname = "Husky";
+    private String readablePname = "";
     private ListView listView;
     //private String[] source = {"hola" , "hola", "hola", "hola", "hola" , "hola", "hola", "hola", "hola"};
     private ArrayList<Rank> source = new ArrayList<>();
@@ -95,7 +96,8 @@ public class RankActivity extends AppCompatActivity {
                 //String temp = ""+(listView.getItemAtPosition(position));
                 ViewGroup row = (ViewGroup)listView.getChildAt(1);
                 TextView name = view.findViewById(R.id.breedName);
-                pname = name.getText().toString().toLowerCase().replaceAll("\\s", "");
+                readablePname = name.getText().toString();
+                pname = readablePname.toLowerCase().replaceAll("\\s", "");
                 //String temp = row.
                 //TextView name = listView;
                 //String temp = name.getText().toString();
@@ -108,6 +110,7 @@ public class RankActivity extends AppCompatActivity {
     public void click(View v){
         Intent intent = new Intent(this, RankInfoActivity.class);
         intent.putExtra("perroname", pname.toLowerCase());
+        intent.putExtra("readablePerroname", readablePname);
         Log.d("-->", "pname2:"+pname);
 
         startActivity(intent);
@@ -120,6 +123,7 @@ public class RankActivity extends AppCompatActivity {
         } else{
             Log.wtf("PERMISOS", "ALREADY AUTHORIZED");
             Intent intent = new Intent(this, MapBreeds.class);
+            intent.putExtra("breeds", "all");
             startActivity(intent);
         }
     }
@@ -128,11 +132,11 @@ public class RankActivity extends AppCompatActivity {
         if(requestCode == 0 && r[0] == PackageManager.PERMISSION_GRANTED){
             Log.wtf("PERMISOS", "SI AUTORIZO");
             Intent intent = new Intent(this, MapBreeds.class);
+            intent.putExtra("breeds", "all");
             startActivity(intent);
         } else {
             Log.wtf("PERMISOS", "NO HAY AUTORIZACION");
         }
-
     }
 }
 

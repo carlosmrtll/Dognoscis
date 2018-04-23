@@ -48,6 +48,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -391,6 +392,8 @@ public class photoActivity extends AppCompatActivity implements
                     pieChart.setDescription(description);
                     pieChart.setExtraBottomOffset(30f);
                     pieChart.animateY(5000);
+                    Highlight h = new Highlight(0, 0, 0);
+                    pieChart.highlightValues(new Highlight[] { h });    // highlight value in pie chart with highest certainty
                     pieChart.invalidate();
                     loading.dismiss();
 
