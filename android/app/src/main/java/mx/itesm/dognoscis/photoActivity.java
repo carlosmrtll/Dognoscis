@@ -239,8 +239,10 @@ public class photoActivity extends AppCompatActivity {
                         properties.loadFromXML(fis);
                         fis.close();
 
+                        //if (properties.getProperty("quantity")!=null) {
                         quantity = Integer.parseInt(properties.getProperty("quantity"));
                         quantity++;
+
 
                         Log.d("DEBUG",first.name+": "+first.certainty);
                         properties.put("quantity", String.valueOf(quantity));

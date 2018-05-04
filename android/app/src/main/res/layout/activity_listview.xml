@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageViewH"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_weight="1"
         app:srcCompat="@android:drawable/btn_star" />
 

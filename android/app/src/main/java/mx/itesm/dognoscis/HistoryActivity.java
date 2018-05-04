@@ -22,7 +22,8 @@ import static mx.itesm.dognoscis.photoActivity.PROPERTIES_FILE;
 public class HistoryActivity extends AppCompatActivity {
     ListView myList;
     Properties properties;
-
+    int startingNum=0;
+    int quantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,38 @@ public class HistoryActivity extends AppCompatActivity {
             ioe.printStackTrace();
         }
 
+        if(properties.getProperty("quantity")==null){
+            quantity=0;
+        }else {
+            quantity = Integer.parseInt(properties.getProperty("quantity"));
+        }
+
+
         myList= findViewById(R.id.listHistory);
-        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),properties);
+        loadhistory();
+
+
+
+    }
+
+    public void next(View v){
+        if (startingNum+3<=quantity){
+            startingNum+=3;
+            loadhistory();
+        }
+
+    }
+
+    public void prev(View v){
+        if (startingNum>0) {
+            startingNum -= 3;
+            loadhistory();
+        }
+    }
+
+    public void loadhistory(){
+
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),properties,startingNum);
         myList.setAdapter(customAdapter);
-
-
     }
 }
