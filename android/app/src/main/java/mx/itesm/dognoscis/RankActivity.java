@@ -1,6 +1,10 @@
 package mx.itesm.dognoscis;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +29,7 @@ import java.util.ArrayList;
 public class RankActivity extends AppCompatActivity {
 
     private String pname = "Husky";
+    private String readablePname = "";
     private ListView listView;
     //private String[] source = {"hola" , "hola", "hola", "hola", "hola" , "hola", "hola", "hola", "hola"};
     private ArrayList<Rank> source = new ArrayList<>();
@@ -32,7 +37,7 @@ public class RankActivity extends AppCompatActivity {
     //private String[] source = new String[4];
     //private String[] perros = {"husky", "dalmata", "chihuahua", "sanbernardo"};
 
-    final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ranking");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,17 +96,11 @@ public class RankActivity extends AppCompatActivity {
                 //String temp = ""+(listView.getItemAtPosition(position));
                 ViewGroup row = (ViewGroup)listView.getChildAt(1);
                 TextView name = view.findViewById(R.id.breedName);
-                pname = name.getText().toString().toLowerCase().replaceAll("\\s", "");
+                readablePname = name.getText().toString();
+                pname = readablePname.toLowerCase().replaceAll("\\s", "");
                 //String temp = row.
                 //TextView name = listView;
                 //String temp = name.getText().toString();
-                if(pname.equals("dalmata")){
-                    pname = "Dalmata";
-                } else if(pname.equals("chihuahua")){
-                    pname = "Chihuahua";
-                } else if(pname.equals("husky")){
-                    pname = "Husky";
-                }
                 Log.d("-->", "pname:"+pname);
                 click(view);
             }
@@ -111,10 +110,33 @@ public class RankActivity extends AppCompatActivity {
     public void click(View v){
         Intent intent = new Intent(this, RankInfoActivity.class);
         intent.putExtra("perroname", pname.toLowerCase());
+        intent.putExtra("readablePerroname", readablePname);
         Log.d("-->", "pname2:"+pname);
 
         startActivity(intent);
     }
 
+    public void openMap(View v){
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(RankActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        } else{
+            Log.wtf("PERMISOS", "ALREADY AUTHORIZED");
+            Intent intent = new Intent(this, MapBreeds.class);
+            intent.putExtra("breeds", "all");
+            startActivity(intent);
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] p, int[] r){
+        if(requestCode == 0 && r[0] == PackageManager.PERMISSION_GRANTED){
+            Log.wtf("PERMISOS", "SI AUTORIZO");
+            Intent intent = new Intent(this, MapBreeds.class);
+            intent.putExtra("breeds", "all");
+            startActivity(intent);
+        } else {
+            Log.wtf("PERMISOS", "NO HAY AUTORIZACION");
+        }
+    }
 }
 

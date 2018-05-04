@@ -10,7 +10,7 @@
     <ListView
         android:id="@+id/ListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="350dip"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="64dp" />
@@ -36,4 +36,14 @@
         android:layout_marginTop="28dp"
         android:text="photos taken"
         android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ListView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:onClick="openMap"
+        android:text="map" />
 </RelativeLayout>
