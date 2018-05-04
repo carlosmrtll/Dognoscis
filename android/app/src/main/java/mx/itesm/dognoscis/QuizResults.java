@@ -1,6 +1,7 @@
 package mx.itesm.dognoscis;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,9 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
     private static final int RC_UNUSED = 5001;
     private static final int RC_SIGN_IN = 9001;
     private static final int RC_LEADERBOARD_UI = 9004;
+
+    // To check which achievement to give
+    private static final String PREFS_NAME = "BreedCount";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,7 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
             signInButton.setVisibility(View.GONE);
             leaderboard.setVisibility(View.VISIBLE);
             submitScore();
+            checkAchievements();
         }
     }
 
@@ -115,6 +120,16 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
         Log.wtf(TAG, "submitting score: "+score);
         Games.getLeaderboardsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                 .submitScore(getString(R.string.leaderboard_quiz_scores), score);
+    }
+
+    public void checkAchievements(){
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int chihuahuaNum = prefs.getInt("Chihuahua", 0);
+        if (chihuahuaNum != 0 && chihuahuaNum >= 10) {
+            Log.wtf(TAG, "CHIHUAHUA ACHIEVEMENT UNLOCKED");
+            Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                    .unlock(getString(R.string.achievement_chihuahua_expert));
+        }
     }
 
     private void signInSilently() {
@@ -201,12 +216,12 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
 
             // Signed in successfully, show authenticated UI.
             Log.wtf(TAG, "Login successfull!");
+            submitScore();
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
             Log.w(TAG, "Login NOT successfull :(");
-            submitScore();
         }
     }
     

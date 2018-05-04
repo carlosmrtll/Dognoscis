@@ -1,6 +1,7 @@
 package mx.itesm.dognoscis;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -44,6 +45,10 @@ public class QuizActivity extends AppCompatActivity {
     private int question;
     private GradientDrawable gradientDefault = new GradientDrawable();
     private GradientDrawable gradientChosen = new GradientDrawable();
+    // To save number of correctly guessed breeds
+    private static final String PREFS_NAME = "BreedCount";
+    private boolean firstTry;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,9 @@ public class QuizActivity extends AppCompatActivity {
         gradientChosen.setColor(Color.parseColor("#74b9ff"));
         gradientChosen.setCornerRadius(7);
         gradientChosen.setStroke(1, Color.parseColor("#74b9ff"));
+
+        firstTry = true;
+
         randomPhoto();
     }
 
@@ -120,41 +128,78 @@ public class QuizActivity extends AppCompatActivity {
         b.setBackground(gradientChosen);
         if(breedChosen.equals(breeds.get(0)) && correctBreed.equals(breeds.get(0))){
             Log.wtf("QUIZ", "correct "+breeds.get(0));
+            if(firstTry){
+                updateBreedCount(breeds.get(0));
+            }
+            firstTry = true;
             randomPhoto();
         }
         else if(breedChosen.equals(breeds.get(1)) && correctBreed.equals(breeds.get(1))){
             Log.wtf("QUIZ", "correct "+breeds.get(1));
+            if(firstTry){
+                updateBreedCount(breeds.get(1));
+            }
+            firstTry = true;
             randomPhoto();
         }
         else if(breedChosen.equals(breeds.get(2)) && correctBreed.equals(breeds.get(2))){
             Log.wtf("QUIZ", "correct "+breeds.get(2));
+            if(firstTry){
+                updateBreedCount(breeds.get(2));
+            }
+            firstTry = true;
             randomPhoto();
         }
         else if(breedChosen.equals(breeds.get(3)) && correctBreed.equals(breeds.get(3))){
             Log.wtf("QUIZ", "correct "+breeds.get(3));
+            if(firstTry){
+                updateBreedCount(breeds.get(3));
+            }
+            firstTry = true;
             randomPhoto();
         }
         else if(breedChosen.equals(breeds.get(4)) && correctBreed.equals(breeds.get(4))){
             Log.wtf("QUIZ", "correct "+breeds.get(4));
+            if(firstTry){
+                updateBreedCount(breeds.get(4));
+            }
+            firstTry = true;
             randomPhoto();
         }
         else if(breedChosen.equals(breeds.get(5)) && correctBreed.equals(breeds.get(5))){
             Log.wtf("QUIZ", "correct "+breeds.get(5));
+            if(firstTry){
+                updateBreedCount(breeds.get(5));
+            }
+            firstTry = true;
             randomPhoto();
         }
         else if(breedChosen.equals(breeds.get(6)) && correctBreed.equals(breeds.get(6))){
             Log.wtf("QUIZ", "correct "+breeds.get(6));
+            if(firstTry){
+                updateBreedCount(breeds.get(6));
+            }
+            firstTry = true;
             randomPhoto();
         }
         else if(breedChosen.equals(breeds.get(7)) && correctBreed.equals(breeds.get(7))){
             Log.wtf("QUIZ", "correct "+breeds.get(7));
+            if(firstTry){
+                updateBreedCount(breeds.get(7));
+            }
+            firstTry = true;
             randomPhoto();
         }
         else if(breedChosen.equals(breeds.get(8)) && correctBreed.equals(breeds.get(8))){
             Log.wtf("QUIZ", "correct "+breeds.get(8));
+            if(firstTry){
+                updateBreedCount(breeds.get(8));
+            }
+            firstTry = true;
             randomPhoto();
         }
         else {
+            firstTry = false;
             points -= 50;
             if(points<0) points=0;
         }
@@ -220,5 +265,23 @@ public class QuizActivity extends AppCompatActivity {
         // Add ImageRequest to the RequestQueue
         imageRequest.setShouldCache(false);
         requestQueue.add(imageRequest);
+    }
+
+    private void updateBreedCount(String breed){
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if(prefs.contains(breed)){
+            int num = prefs.getInt(breed,0);
+            if(num != 0){
+                editor.putInt(breed, num+1);
+                editor.apply();
+            }
+            Log.wtf("BreedCount", "breed "+breed+" updated as: "+num);
+        } else {
+            editor.putInt(breed, 1);
+            editor.apply();
+            Log.wtf("BreedCount", "breed "+breed+"updated as: "+1);
+        }
+
     }
 }
