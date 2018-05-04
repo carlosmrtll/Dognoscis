@@ -31,36 +31,30 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/submit"
+        android:id="@+id/leaderboardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button2"
         android:layout_below="@+id/totalPoints"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp"
-        android:text="Submit Score" />
-
-    <Button
-        android:id="@+id/leaderbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/submit"
-        android:layout_below="@+id/submit"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="69dp"
+        android:onClick="onClick"
         android:text="Leaderboard" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/leaderbutton"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/leaderbutton"
-        android:layout_marginBottom="26dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="58dp"
         android:onClick="backMenu"
         android:text="Back to menu" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/totalPoints"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp" />
 </RelativeLayout>

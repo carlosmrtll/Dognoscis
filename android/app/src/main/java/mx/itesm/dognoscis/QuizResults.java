@@ -3,7 +3,6 @@ package mx.itesm.dognoscis;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,23 +12,21 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.LeaderboardsClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 public class QuizResults extends AppCompatActivity implements View.OnClickListener{
 
     private TextView totalPointsText;
-    private Button submit;
     private Button leaderboard;
     private int score;
     private final String TAG = "QUIZR";
@@ -42,6 +39,7 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
     // request codes we use when invoking an external activity
     private static final int RC_UNUSED = 5001;
     private static final int RC_SIGN_IN = 9001;
+    private static final int RC_LEADERBOARD_UI = 9004;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +47,7 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_quiz_results);
         Intent intent = getIntent();
         totalPointsText = findViewById(R.id.totalPoints);
-        submit = findViewById(R.id.submit);
-        leaderboard = findViewById(R.id.leaderbutton);
+        leaderboard = findViewById(R.id.leaderboardButton);
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
 
@@ -68,6 +65,7 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestScopes(Games.SCOPE_GAMES_LITE)
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
         /*if(isSignedIn()){
@@ -80,12 +78,17 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        /*if(!isSignedIn()){
+        if(!isSignedIn()){
             Log.wtf(TAG, "NOT signed in");
+            signInButton.setVisibility(View.VISIBLE);
+            leaderboard.setVisibility(View.GONE);
             signInSilently();
         } else {
             Log.wtf(TAG, "SIGNED in");
-        }*/
+            signInButton.setVisibility(View.GONE);
+            leaderboard.setVisibility(View.VISIBLE);
+            submitScore();
+        }
     }
 
     @Override
@@ -94,11 +97,28 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
             case R.id.sign_in_button:
                 signIn();
                 break;
-            // ...
+            case R.id.leaderboardButton:
+                Log.wtf(TAG, "GAMES LITE permission: "+GoogleSignIn.hasPermissions(account, Games.SCOPE_GAMES_LITE));
+                Games.getLeaderboardsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                        .getLeaderboardIntent(getString(R.string.leaderboard_quiz_scores))
+                        .addOnSuccessListener(new OnSuccessListener<Intent>() {
+                            @Override
+                            public void onSuccess(Intent intent) {
+                                startActivityForResult(intent, RC_LEADERBOARD_UI);
+                            }
+                        });
+                break;
         }
     }
 
+    public void submitScore(){
+        Log.wtf(TAG, "submitting score: "+score);
+        Games.getLeaderboardsClient(this, GoogleSignIn.getLastSignedInAccount(this))
+                .submitScore(getString(R.string.leaderboard_quiz_scores), score);
+    }
+
     private void signInSilently() {
+        Log.wtf(TAG, "signInSilently()");
         GoogleSignInClient signInClient = GoogleSignIn.getClient(this,
                 GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
         signInClient.silentSignIn().addOnCompleteListener(this,
@@ -107,7 +127,7 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
                     public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
                         if (task.isSuccessful()) {
                             // The signed in account is stored in the task's result.
-                            GoogleSignInAccount signedInAccount = task.getResult();
+                            account = task.getResult();
                         } else {
                             // Player will need to sign-in explicitly using via UI
                         }
@@ -186,9 +206,10 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
             Log.w(TAG, "Login NOT successfull :(");
+            submitScore();
         }
     }
-
+    
     public void backMenu(View v){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
