@@ -9,3 +9,9 @@
 .externalNativeBuild
 google-services.json
 ValuesSecret.java
+*.jks
+/app/debug
+/app/release
+/app/src/debug
+/app/src/release
+ids.xml

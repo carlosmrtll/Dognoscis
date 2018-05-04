@@ -37,6 +37,7 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
     private GoogleSignInClient googleSignInClient;
     private LeaderboardsClient leaderboardsClient;
     private SignInButton signInButton;
+    GoogleSignInAccount account;
 
     // request codes we use when invoking an external activity
     private static final int RC_UNUSED = 5001;
@@ -176,7 +177,7 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
             Log.wtf(TAG, "Login successfull!");
