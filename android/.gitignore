@@ -9,7 +9,6 @@
 .externalNativeBuild
 google-services.json
 ValuesSecret.java
-<<<<<<< HEAD
 *.jks
 /app/debug
 /app/release
