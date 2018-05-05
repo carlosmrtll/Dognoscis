@@ -1,9 +1,13 @@
 chihuahua
 san bernardo
 shih tzu
+pug
 gran danes
 yorkshire
 beagle
+boxer
+golden retriever
 dalmata
 husky
+pastor australiano
 pastor aleman

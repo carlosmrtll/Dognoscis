@@ -23,11 +23,9 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart"
         android:layout_width="150dip"
-        android:layout_height="400dip"
-        android:layout_marginBottom="11dp"
+        android:layout_height="480dip"
 
-
-        android:layout_below="@+id/top"
+        android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top" />
