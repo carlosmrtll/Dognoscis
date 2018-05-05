@@ -24,15 +24,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/mybutton"
-        android:color="@color/blue"
         android:onClick="checkChoice"
         android:text="Uno"
+        android:background="@drawable/mybutton"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/light_bg"
         android:textSize="24sp"
-        android:typeface="monospace"
+        android:fontFamily="sans-serif-light"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dogImageView" />
 
@@ -50,7 +49,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/light_bg"
         android:textSize="24sp"
-        android:typeface="monospace"
+        android:fontFamily="sans-serif-light"
         app:layout_constraintStart_toEndOf="@+id/opcion1"
         app:layout_constraintTop_toBottomOf="@+id/dogImageView" />
 
@@ -68,7 +67,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/light_bg"
         android:textSize="24sp"
-        android:typeface="monospace"
+        android:fontFamily="sans-serif-light"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/opcion1" />
 
@@ -86,7 +85,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/light_bg"
         android:textSize="24sp"
-        android:typeface="monospace"
+        android:fontFamily="sans-serif-light"
         app:layout_constraintStart_toEndOf="@+id/opcion3"
         app:layout_constraintTop_toBottomOf="@+id/opcion2"
 
@@ -99,7 +98,7 @@
         android:layout_height="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:progressTint="@color/light_blue"
+        android:progressTint="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pointsText" />
 

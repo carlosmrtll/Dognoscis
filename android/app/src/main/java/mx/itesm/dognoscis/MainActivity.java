@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     static final int REPORT_CODE = 1;
 
-    final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ranking");
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ranking");
 
     private Properties properties;
     public static final String PROPERTIES_FILE = "properties.xml";
@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         setTheme(R.style.AppTheme);
 
         try { Thread.sleep(3000); }
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.light_bg));
         getSupportActionBar().hide();
-
 
 
 

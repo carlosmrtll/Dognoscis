@@ -1,8 +1,11 @@
 package mx.itesm.dognoscis;
 
+import android.*;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +25,7 @@ public class RankInfoActivity extends AppCompatActivity {
 
     private TextView textView;
     private ImageView imageView;
-    private String perro, info, temp;
+    private String perro, readablePerro, info, temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,9 @@ public class RankInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         perro = intent.getStringExtra("perroname");
+        readablePerro = intent.getStringExtra("readablePerroname");
         Log.wtf("RANK", "perro:"+perro);
+        Log.wtf("RANK", "readablePerro:"+readablePerro);
         info = "";
         temp = "";
 
@@ -80,6 +85,29 @@ public class RankInfoActivity extends AppCompatActivity {
 
     public void buttonClick(View v){
         finish();
+    }
+
+    public void openMap(View v){
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(RankInfoActivity.this, new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        } else{
+            Log.wtf("PERMISOS", "ALREADY AUTHORIZED");
+            Intent intent = new Intent(this, MapBreeds.class);
+            intent.putExtra("breeds", readablePerro);
+            startActivity(intent);
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] p, int[] r){
+        if(requestCode == 0 && r[0] == PackageManager.PERMISSION_GRANTED){
+            Log.wtf("PERMISOS", "SI AUTORIZO");
+            Intent intent = new Intent(this, MapBreeds.class);
+            intent.putExtra("breeds", readablePerro);
+            startActivity(intent);
+        } else {
+            Log.wtf("PERMISOS", "NO HAY AUTORIZACION");
+        }
     }
 
 }

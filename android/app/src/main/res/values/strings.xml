@@ -14,5 +14,9 @@
     <color name="light_yellow">#ffeaa7</color>
     <color name="green">#00b894</color>
     <color name="light_green">#55efc4</color>
+    <color name="btn_light">#636e72</color>
+    <color name="btn_dark">#2d3436</color>
+    <color name="shadow">#b2bec3</color>
+    <string name="title_activity_map_breeds">Map</string>
 
 </resources>

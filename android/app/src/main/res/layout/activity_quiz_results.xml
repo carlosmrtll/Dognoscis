@@ -14,10 +14,10 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
-        android:text="total points:"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="124dp" />
+        android:text="Score:"
+        android:textSize="35sp"
+        android:textColor="@color/dark"
+        android:fontFamily="sans-serif"  />
 
     <TextView
         android:id="@+id/totalPoints"
@@ -25,20 +25,27 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView10"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
         android:text="0"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:textSize="50sp"
+        android:textColor="@color/dark"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/leaderboardButton"
-        android:layout_width="wrap_content"
+        android:layout_width="239dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/button2"
         android:layout_below="@+id/totalPoints"
-        android:layout_marginTop="69dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/mybutton"
+        android:fontFamily="sans-serif-light"
         android:onClick="onClick"
-        android:text="Leaderboard" />
+        android:text="Leaderboard"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/light_bg"
+        android:textSize="24sp"
+        android:layout_marginTop="85dp"/>
 
     <Button
         android:id="@+id/button2"
@@ -46,9 +53,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="58dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/mybutton"
+        android:fontFamily="sans-serif-light"
         android:onClick="backMenu"
-        android:text="Back to menu" />
+        android:text="Back to Menu"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/light_bg"
+        android:textSize="24sp" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
@@ -56,5 +69,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/totalPoints"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp" />
+        android:layout_marginTop="75dp" />
 </RelativeLayout>

@@ -9,9 +9,11 @@
 .externalNativeBuild
 google-services.json
 ValuesSecret.java
+<<<<<<< HEAD
 *.jks
 /app/debug
 /app/release
 /app/src/debug
 /app/src/release
 ids.xml
+google_maps_api.xml
