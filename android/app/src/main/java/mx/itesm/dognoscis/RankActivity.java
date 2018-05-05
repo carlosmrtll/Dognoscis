@@ -66,8 +66,8 @@ public class RankActivity extends AppCompatActivity {
                 Log.d("-->", "llega");
                 for (DataSnapshot child : snapshot.getChildren()) {
                     Long count = (Long)child.child("count").getValue();
-                    Log.d("-->","key:"+child.getKey());
-                    Log.d("-->","count: "+count.intValue());
+                    Log.wtf("-->","key:"+child.getKey());
+                    Log.wtf("-->","count: "+count.intValue());
                     source.set(i, new Rank(child.getKey().toString(), count.intValue()));
                     i--;
                 }

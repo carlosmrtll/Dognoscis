@@ -82,6 +82,7 @@ public class photoActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "BreedCount";
     Intent intent;
     PieChart pieChart;
+    private final String TAG = "PHOTOL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +161,9 @@ public class photoActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onTick(long l) { }
+        public void onTick(long l) {
+            Log.wtf(TAG, "tick");
+        }
 
         @Override
         public void onFinish() {
@@ -171,6 +174,7 @@ public class photoActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
         image.setImageURI(photoURI);
+        Log.wtf(TAG, "sending");
         loading = ProgressDialog.show(this,"Recognizing...","Please wait...",false,false);
         timer = new MyCountDownTimer(20000, 1000);
         timer.start();
@@ -201,7 +205,7 @@ public class photoActivity extends AppCompatActivity {
         client.post(ValuesSecret.IMAGE_RECOGNIZER_API_URL, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response){
-                Log.d("mens", "success!");
+                Log.wtf(TAG, "success!");
                 timer.cancel();
                 try{
                     PQsort pqs = new PQsort();
@@ -215,6 +219,10 @@ public class photoActivity extends AppCompatActivity {
                     JSONObject JSONYorkshire = response.getJSONObject("yorkshire");
                     JSONObject JSONshihTzu = response.getJSONObject("shih tzu");
                     JSONObject JSONbeagle = response.getJSONObject("beagle");
+                    JSONObject JSONboxer = response.getJSONObject("boxer");
+                    JSONObject JSONpug = response.getJSONObject("pug");
+                    JSONObject JSONpastorAustrliano = response.getJSONObject("pastor australiano");
+                    JSONObject JSONgoldenRetriever = response.getJSONObject("golden retriever");
                     queue.add(new DogInfo("Husky", JSONhusky.getDouble("value")*100.0));
                     queue.add(new DogInfo("Dalmata", JSONdalmata.getDouble("value")*100.0));
                     queue.add(new DogInfo("Chihuahua", JSONchihuahua.getDouble("value")*100.0));
@@ -224,6 +232,10 @@ public class photoActivity extends AppCompatActivity {
                     queue.add(new DogInfo("Yorkshire", JSONYorkshire.getDouble("value") * 100.0));
                     queue.add(new DogInfo("Shih Tzu", JSONshihTzu.getDouble("value") * 100.0));
                     queue.add(new DogInfo("Beagle", JSONbeagle.getDouble("value") * 100.0));
+                    queue.add(new DogInfo("Boxer", JSONboxer.getDouble("value") * 100.0));
+                    queue.add(new DogInfo("Pug", JSONpug.getDouble("value") * 100.0));
+                    queue.add(new DogInfo("Pastor Australiano", JSONpastorAustrliano.getDouble("value") * 100.0));
+                    queue.add(new DogInfo("Golden Retriever", JSONgoldenRetriever.getDouble("value") * 100.0));
                     DogInfo first = queue.poll();
                     DogInfo second = queue.poll();
                     DogInfo third = queue.poll();
@@ -233,13 +245,17 @@ public class photoActivity extends AppCompatActivity {
                     DogInfo seventh = queue.poll();
                     DogInfo eighth = queue.poll();
                     DogInfo nineth = queue.poll();
-                    Log.d("response: ", "first: " + first.name + " - " + first.certainty);
-                    Log.d("response: ", "second: " + second.name + " - " + second.certainty);
-                    Log.d("response: ", "third: " + third.name + " - " + third.certainty);
+                    DogInfo tenth = queue.poll();
+                    DogInfo eleventh = queue.poll();
+                    DogInfo twelfth = queue.poll();
+                    DogInfo thirteenth = queue.poll();
+                    Log.wtf(TAG, "first: " + first.name + " - " + first.certainty);
+                    Log.wtf(TAG, "second: " + second.name + " - " + second.certainty);
+                    Log.wtf(TAG, "third: " + third.name + " - " + third.certainty);
                     ArrayList<DogInfo> dogInfos = new ArrayList<>();
                     dogInfos.add(first); dogInfos.add(second); dogInfos.add(third); dogInfos.add(fourth);
                     dogInfos.add(fifth); dogInfos.add(sixth); dogInfos.add(seventh); dogInfos.add(eighth);
-                    dogInfos.add(nineth);
+                    dogInfos.add(nineth); dogInfos.add(tenth); dogInfos.add(eleventh); dogInfos.add(twelfth); dogInfos.add(thirteenth);
 
                     try{
                         FileInputStream fis = openFileInput(PROPERTIES_FILE);
@@ -249,7 +265,7 @@ public class photoActivity extends AppCompatActivity {
                         quantity = Integer.parseInt(properties.getProperty("quantity"));
                         quantity++;
 
-                        Log.d("DEBUG",first.name+": "+first.certainty);
+                        Log.wtf(TAG,first.name+": "+first.certainty);
                         properties.put("quantity", String.valueOf(quantity));
                         properties.put(String.valueOf(quantity)+"percentages",first.name+": "+String.format("%.2f   ",first.certainty));
                         properties.put(String.valueOf(quantity)+"uri",photoURI.toString());
@@ -273,7 +289,11 @@ public class photoActivity extends AppCompatActivity {
                             sixth.name, (int)sixth.certainty, '%',
                             seventh.name, (int)seventh.certainty, '%',
                             eighth.name, (int)eighth.certainty, '%',
-                            nineth.name, (int)nineth.certainty, '%'
+                            nineth.name, (int)nineth.certainty, '%',
+                            tenth.name, (int)tenth.certainty, '%',
+                            eleventh.name, (int)eleventh.certainty, '%',
+                            twelfth.name, (int)twelfth.certainty, '%',
+                            thirteenth.name, (int)thirteenth.certainty, '%'
                     ));
                     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -286,12 +306,16 @@ public class photoActivity extends AppCompatActivity {
                             Color.rgb(148, 0, 211),  // violet
                             Color.rgb(75, 0, 130),   // indigo
                             Color.rgb(0, 0, 255),    // blue
-                            Color.rgb(18, 189, 185)  // cyan
+                            Color.rgb(18, 189, 185),  // cyan
+                            Color.rgb(255, 102, 0),  // orange
+                            Color.rgb(193, 37, 82),  // red
+                            Color.rgb(179, 100, 53), // brown
+                            Color.rgb(148, 0, 211),  // violet
                     };
                     Legend legend = pieChart.getLegend();
                     legend.setEnabled(true);
                     ArrayList<LegendEntry> labels = new ArrayList<>();
-                    for(int i=0; i<9; i++){
+                    for(int i=0; i<13; i++){
                         entries.add(new PieEntry((float)(int)dogInfos.get(i).certainty, i));
 
                         LegendEntry legendEntry = new LegendEntry();

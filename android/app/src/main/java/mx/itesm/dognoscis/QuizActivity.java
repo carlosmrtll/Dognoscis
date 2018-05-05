@@ -63,7 +63,7 @@ public class QuizActivity extends AppCompatActivity {
         dogImageView = findViewById(R.id.dogImageView);
         breeds.add("Husky");  breeds.add("Dalmata");  breeds.add("San_Bernardo");  breeds.add("Chihuahua");
         breeds.add("Gran_Danes");  breeds.add("Pastor_Aleman");  breeds.add("Yorkshire");  breeds.add("Shih_Tzu");
-        breeds.add("Beagle");
+        breeds.add("Beagle"); breeds.add("Boxer"); breeds.add("Pug"); breeds.add("Pastor_Australiano"); breeds.add("Golden_Retriever");
         opcion1 = findViewById(R.id.opcion1);
         opcion2 = findViewById(R.id.opcion2);
         opcion3 = findViewById(R.id.opcion3);
@@ -196,6 +196,22 @@ public class QuizActivity extends AppCompatActivity {
                 updateBreedCount(breeds.get(8));
             }
             firstTry = true;
+            randomPhoto();
+        }
+        else if(breedChosen.equals(breeds.get(9)) && correctBreed.equals(breeds.get(9))){
+            Log.wtf("QUIZ", "correct "+breeds.get(9));
+            randomPhoto();
+        }
+        else if(breedChosen.equals(breeds.get(10)) && correctBreed.equals(breeds.get(10))){
+            Log.wtf("QUIZ", "correct "+breeds.get(10));
+            randomPhoto();
+        }
+        else if(breedChosen.equals(breeds.get(11)) && correctBreed.equals(breeds.get(11))){
+            Log.wtf("QUIZ", "correct "+breeds.get(11));
+            randomPhoto();
+        }
+        else if(breedChosen.equals(breeds.get(12)) && correctBreed.equals(breeds.get(12))){
+            Log.wtf("QUIZ", "correct "+breeds.get(11));
             randomPhoto();
         }
         else {

@@ -8,7 +8,7 @@
     "labels": "retrained_labels.txt",
     "input_layer_name": "DecodeJpeg/contents:0",
     "output_layer_name": "final_result:0",
-    "num_top_predictions": 10
+    "num_top_predictions": 14
   },
   "img_path": "img/",
   "tf_path": "tf/",
@@ -21,6 +21,10 @@
     "pastor aleman": { },
     "shih tzu": { },
     "yorkshire": { },
-    "beagle": { }
+    "beagle": { },
+    "boxer": { },
+    "pug": { },
+    "pastor australiano": { },
+    "golden retriever": { }
   }
 }
