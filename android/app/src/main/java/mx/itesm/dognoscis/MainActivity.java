@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         setTheme(R.style.AppTheme);
 
         try { Thread.sleep(3000); }
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.light_bg));
         getSupportActionBar().hide();
-
 
 
 

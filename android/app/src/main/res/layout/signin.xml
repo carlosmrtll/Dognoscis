@@ -43,6 +43,12 @@
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
-        android:text="Sign in" />
+        android:text="Sign In"
+        android:background="@drawable/mybutton"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/light_bg"
+        android:textSize="24sp"
+        android:typeface="monospace"/>
 
 </RelativeLayout>

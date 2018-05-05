@@ -9,27 +9,27 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="350dp"
-        android:layout_alignParentStart="true"
+        android:layout_width="175dp"
+        android:layout_height="192dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="19dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
         android:rotation="0"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart"
-        android:layout_width="150dip"
-        android:layout_height="400dip"
-        android:layout_marginBottom="11dp"
-
-
+        android:layout_width="300dp"
+        android:layout_height="191dp"
+        android:layout_alignEnd="@+id/top"
         android:layout_below="@+id/top"
-        android:layout_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/dark"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/top" />
 
     <TextView
@@ -51,21 +51,31 @@
 
     <TextView
         android:id="@+id/top"
-        android:layout_width="wrap_content"
+        android:layout_width="353dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_marginTop="22dp"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="229dp"
+        android:fontFamily="sans-serif-light"
         android:inputType="textMultiLine"
-        android:singleLine="false" />
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:textColor="@color/dark"
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/reportProblemBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="237dp"
+        android:layout_height="37dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_marginBottom="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:background="@drawable/mybutton"
+        android:fontFamily="sans-serif-light"
         android:onClick="reportClick"
-        android:text="Report problem" />
+        android:text="Report Problem"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/light_bg"
+        android:textSize="16sp" />
 </RelativeLayout>

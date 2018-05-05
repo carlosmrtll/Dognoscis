@@ -116,8 +116,7 @@ public class QuizActivity extends AppCompatActivity {
         Button b = (Button) v;
         String breedChosen = b.getText().toString().replaceAll(" ", "_");
         Log.wtf("QUIZ", "chosen:"+breedChosen+" cB:"+correctBreed);
-        b.setClickable(false);
-        b.setBackground(gradientChosen);
+        b.setEnabled(false);
         if(breedChosen.equals(breeds.get(0)) && correctBreed.equals(breeds.get(0))){
             Log.wtf("QUIZ", "correct "+breeds.get(0));
             randomPhoto();
@@ -181,17 +180,13 @@ public class QuizActivity extends AppCompatActivity {
         correctBreed = breeds.get(random.nextInt(4));
 
         opcion1.setText(breeds.get(0).replaceAll("_", " "));
-        opcion1.setClickable(true);
-        opcion1.setBackground(gradientDefault);
+        opcion1.setEnabled(true);
         opcion2.setText(breeds.get(1).replaceAll("_", " "));
-        opcion2.setClickable(true);
-        opcion2.setBackground(gradientDefault);
+        opcion2.setEnabled(true);
         opcion3.setText(breeds.get(2).replaceAll("_", " "));
-        opcion3.setClickable(true);
-        opcion3.setBackground(gradientDefault);
+        opcion3.setEnabled(true);
         opcion4.setText(breeds.get(3).replaceAll("_", " "));
-        opcion4.setClickable(true);
-        opcion4.setBackground(gradientDefault);
+        opcion4.setEnabled(true);
         Log.wtf("QUIZ", "correctBreed:"+correctBreed);
         pointsText.setText(String.valueOf(points));
         ImageRequest imageRequest = new ImageRequest(

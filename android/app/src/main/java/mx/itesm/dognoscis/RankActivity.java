@@ -58,6 +58,10 @@ public class RankActivity extends AppCompatActivity {
         source.add(new Rank("hola", 0));
         source.add(new Rank("hola", 0));
         source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
 
         ref.orderByChild("count").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

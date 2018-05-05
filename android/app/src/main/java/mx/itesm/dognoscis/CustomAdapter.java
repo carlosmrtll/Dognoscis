@@ -68,7 +68,7 @@ public class CustomAdapter extends BaseAdapter {
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.context.getContentResolver(), Uri.parse(properties.getProperty(String.valueOf(i + 1) + "uri")));
-                Bitmap scaledBitmap = scaleDown(bitmap, 100, true);
+                Bitmap scaledBitmap = scaleDown(bitmap, 200, true);
                 image.setImageBitmap(scaledBitmap);
             }catch (java.io.IOException exp){
                 Log.d("bitmap","bmp");
