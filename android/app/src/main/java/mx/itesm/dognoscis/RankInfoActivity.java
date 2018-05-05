@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -64,6 +65,7 @@ public class RankInfoActivity extends AppCompatActivity {
         }
 
         textView.setText(info);
+        textView.setMovementMethod(new ScrollingMovementMethod());
 
         //para conseguir las imagenes
         try

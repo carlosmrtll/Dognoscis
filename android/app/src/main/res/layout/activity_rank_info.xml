@@ -18,6 +18,8 @@
         android:text="TextView"
         android:textColor="@color/dark"
         android:textSize="16sp"
+        android:maxLines = "20"
+        android:scrollbars = "vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
