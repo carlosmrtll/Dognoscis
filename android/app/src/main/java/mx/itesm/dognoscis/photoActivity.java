@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -43,6 +44,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.games.Games;
 import com.loopj.android.http.*;
 import cz.msebera.android.httpclient.Header;
 
@@ -70,12 +73,13 @@ public class photoActivity extends AppCompatActivity {
     Uri photoURI;
     ImageView image;
     TextView percentages, top;
-    Button reportbutton;
+    Button reportbutton, contributeButton;
     String breed = null;
     HttpURLConnection urlConnection;
     private Bitmap bitmap;
     Properties properties;
     public static final String PROPERTIES_FILE = "properties.xml";
+    private static final String PREFS_NAME = "BreedCount";
     Intent intent;
     PieChart pieChart;
 
@@ -93,12 +97,15 @@ public class photoActivity extends AppCompatActivity {
         percentages = findViewById(R.id.percentages);
         top = findViewById(R.id.top);
         reportbutton = findViewById(R.id.reportProblemBtn);
+        contributeButton = findViewById(R.id.contributeButton);
         intent = new Intent();
         pieChart = (PieChart)findViewById(R.id.chart);
 
         dispatchTakePictureIntent();
 
         properties = new Properties();
+
+        contributeButton.setVisibility(View.GONE);
     }
 
 
@@ -311,6 +318,12 @@ public class photoActivity extends AppCompatActivity {
                         percentages.setText("irreconocible");
                     }*/
 
+                    SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                    int chihuahuaNum = prefs.getInt("Chihuahua", 0);
+                    if (chihuahuaNum >= 10) {
+                        Log.wtf("ACHVMNT", "CHIHUAHUA ACHIEVEMENT UNLOCKED");
+                        contributeButton.setVisibility(View.VISIBLE);
+                    }
 
                     breed = first.name;
                     intent.putExtra("breed", breed);
@@ -416,5 +429,9 @@ public class photoActivity extends AppCompatActivity {
         intent.putExtra("clicked", false);
         setResult(Activity.RESULT_OK, intent);
         Toast.makeText(photoActivity.this,"Report sent, our apologies",  Toast.LENGTH_LONG).show();
+    }
+
+    public void contributeClick(View v) {
+        Toast.makeText(photoActivity.this,"Awesome, you're helping improve Dognoscis",  Toast.LENGTH_LONG).show();
     }
 }

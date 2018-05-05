@@ -68,4 +68,13 @@
         android:layout_marginBottom="25dp"
         android:onClick="reportClick"
         android:text="Report problem" />
+
+    <Button
+        android:id="@+id/contributeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/reportProblemBtn"
+        android:layout_alignEnd="@+id/reportProblemBtn"
+        android:onClick="contributeClick"
+        android:text="contribute with this photo" />
 </RelativeLayout>

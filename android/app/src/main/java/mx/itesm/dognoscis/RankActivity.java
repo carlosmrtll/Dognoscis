@@ -32,7 +32,7 @@ public class RankActivity extends AppCompatActivity {
     //private String[] source = new String[4];
     //private String[] perros = {"husky", "dalmata", "chihuahua", "sanbernardo"};
 
-    final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("ranking");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,10 @@ public class RankActivity extends AppCompatActivity {
         source.add(new Rank("hola", 0));
         source.add(new Rank("hola", 0));
         source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
+        source.add(new Rank("hola", 0));
 
         ref.orderByChild("count").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -62,9 +66,9 @@ public class RankActivity extends AppCompatActivity {
                 Log.d("-->", "llega");
                 for (DataSnapshot child : snapshot.getChildren()) {
                     Long count = (Long)child.child("count").getValue();
-                    source.set(i, new Rank(child.getKey().toString(), count.intValue()));
                     Log.d("-->","key:"+child.getKey());
                     Log.d("-->","count: "+count.intValue());
+                    source.set(i, new Rank(child.getKey().toString(), count.intValue()));
                     i--;
                 }
                 Log.d("-->", "sale");

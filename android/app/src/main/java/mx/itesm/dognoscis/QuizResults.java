@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -127,6 +128,7 @@ public class QuizResults extends AppCompatActivity implements View.OnClickListen
         int chihuahuaNum = prefs.getInt("Chihuahua", 0);
         if (chihuahuaNum != 0 && chihuahuaNum >= 10) {
             Log.wtf(TAG, "CHIHUAHUA ACHIEVEMENT UNLOCKED");
+            Toast.makeText(this, "You're now a Chihuahua expert", Toast.LENGTH_SHORT).show();
             Games.getAchievementsClient(this, GoogleSignIn.getLastSignedInAccount(this))
                     .unlock(getString(R.string.achievement_chihuahua_expert));
         }

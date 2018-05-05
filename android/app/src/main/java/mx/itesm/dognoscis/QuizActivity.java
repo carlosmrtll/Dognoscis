@@ -280,7 +280,7 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             editor.putInt(breed, 1);
             editor.apply();
-            Log.wtf("BreedCount", "breed "+breed+"updated as: "+1);
+            Log.wtf("BreedCount", "breed "+breed+" updated as: "+1);
         }
 
     }
