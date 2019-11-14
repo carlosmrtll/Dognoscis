@@ -1,5 +1,5 @@
 # Dognoscis
-Dog breed image recognition app. You can download the app [HERE!](https://play.google.com/store/apps/details?id=mx.itesm.dognoscis) </br>
+Dog breed image recognition app. </br>
 </br>
 Built in a group of 4 people, this app not only allows for breed recognition from a photo (currently supporting 13 breeds), but also see the ranking for the most photographed breeds with the app globally in a heat map and a quiz to prove how you fast you can identify dog breeds yourself, with online Google Play high scores and achievements.</br>
 </br>
